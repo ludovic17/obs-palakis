@@ -619,10 +619,15 @@ obs-build-main() {
     ensure_dir ${CHECKOUT_DIR}
     step "Fetching OBS tags..."
     git fetch origin --tags
+    step "Fetching OBS tags...1"
     GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    step "Fetching OBS tags...2"
     GIT_HASH=$(git rev-parse --short HEAD)
+    step "Fetching OBS tags...3"
     GIT_TAG=$(git describe --tags --abbrev=0)
+    step "Fetching OBS tags...4"
     FILE_NAME="obs-studio-${GIT_TAG}-${GIT_HASH}-macOS.dmg"
+    step "Fetching OBS tags...5"
 
     ##########################################################################
     # IMPORTANT:
