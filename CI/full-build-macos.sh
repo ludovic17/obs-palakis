@@ -618,7 +618,7 @@ print_usage() {
 obs-build-main() {
     ensure_dir ${CHECKOUT_DIR}
     step "Fetching OBS tags..."
-    step "Fetching OBS tags...0"
+    step "Fetching OBS tags...000"
     git fetch origin --tags
     step "Fetching OBS tags...1"
     GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
