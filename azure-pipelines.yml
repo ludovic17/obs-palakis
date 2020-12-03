@@ -60,16 +60,16 @@ jobs:
   steps:
   - script: git submodule update --init --recursive
     displayName: 'Checkout Submodules'
-  - script: ./CI/install-qt-win.cmd
+  - script: call ./CI/install-qt-win.cmd
     displayName: 'Install QT'
-  - script: ./CI/install-script-win.cmd
+  - script: call ./CI/install-script-win.cmd
     displayName: 'Download / Setup Deps / Run CMake'
   - task: MSBuild@1
     displayName: 'Build 64-bit'
     inputs:
       msbuildArguments: '/m /p:Configuration=Release'
       solution: .\build64\obs-studio.sln
-  - script: ./CI/before-deploy-win.cmd
+  - script: call ./CI/before-deploy-win.cmd
     condition: or(ne(variables['Build.Reason'], 'PullRequest'), eq(variables['prHasCILabel'], true))
     displayName: 'Before deploy'
   - task: PublishBuildArtifacts@1
