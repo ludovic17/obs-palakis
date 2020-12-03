@@ -226,8 +226,8 @@ install_libwebrtc() {
     hdiutil attach -quiet -nobrowse -noverify libWebRTC.cdr
     step "Copy to destination..."
     cp -r /Volumes/libWebRTC-${1}-x64-Release/libwebrtc ./
-#    step "Eject the CDR image"
-#    hdiutil detach
+    step "Eject the CDR image"
+    hdiutil detach /Volumes/libWebRTC-${1}-x64-Release
 }
 
 ## CHECK AND INSTALL PACKAGING DEPENDENCIES ##
