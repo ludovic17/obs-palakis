@@ -216,12 +216,18 @@ install_libwebrtc() {
     ensure_dir ${DEPS_BUILD_DIR}
     step "Download..."
     ${CURLCMD} --progress-bar -L -C - -o libWebRTC.dmg https://www.palakis.fr/obs/obs-studio-webrtc/libWebRTC-${1}-x64-RelComm.dmg
+    if [ -e libWebRTC.cdr ]
+    then
+      rm libWebRTC.cdr
+    fi
     step "Bypass the EULA by converting the DMG download to a CDR image"
     hdiutil convert -quiet libWebRTC.dmg -format UDTO -o libWebRTC
     step "Mount the CDR image"
     hdiutil attach -quiet -nobrowse -noverify libWebRTC.cdr
     step "Copy to destination..."
     cp -r /Volumes/libWebRTC-${1}-x64-Release/libwebrtc ./
+#    step "Eject the CDR image"
+#    hdiutil detach
 }
 
 ## CHECK AND INSTALL PACKAGING DEPENDENCIES ##
@@ -618,17 +624,11 @@ print_usage() {
 obs-build-main() {
     ensure_dir ${CHECKOUT_DIR}
     step "Fetching OBS tags..."
-    step "Fetching OBS tags...00"
     git fetch origin --tags
-    step "Fetching OBS tags...1"
     GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    step "Fetching OBS tags...2"
     GIT_HASH=$(git rev-parse --short HEAD)
-    step "Fetching OBS tags...3"
     GIT_TAG=$(git describe --tags --abbrev=0)
-    step "Fetching OBS tags...4"
     FILE_NAME="obs-studio-${GIT_TAG}-${GIT_HASH}-macOS.dmg"
-    step "Fetching OBS tags...5"
 
     ##########################################################################
     # IMPORTANT:
