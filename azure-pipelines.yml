@@ -86,6 +86,12 @@ jobs:
     name: 'ubuntu2004'
 #    vmImage: 'ubuntu-18.04'
   steps:
+  - task: Cache@2
+    inputs:
+      key: 'dependencies | "$(Agent.OS)" | ./libWebRTC.sh'
+      path: ./libwebrtc
+    displayName: Cache libWebRTC
+
   - script: git submodule update --init --recursive
     displayName: 'Checkout Submodules'
   - script: ./CI/install-dependencies-linux.sh
