@@ -63,12 +63,6 @@ jobs:
   - script: call ./CI/install-qt-win.cmd
     displayName: 'Install QT'
 
-  - task: Cache@2
-    inputs:
-      key: 'qt | "$(Agent.OS)" | ./Qt_5.10.1.7z'
-      path: C:\QtDep
-    displayName: Cache Qt
-
   - script: call ./CI/install-script-win.cmd
     displayName: 'Download / Setup Deps / Run CMake'
   - task: MSBuild@1
@@ -97,12 +91,6 @@ jobs:
     displayName: 'Checkout Submodules'
   - script: ./CI/install-dependencies-linux.sh
     displayName: 'Install Dependencies'
-
-  - task: Cache@2
-    inputs:
-      key: 'dependencies | "$(Agent.OS)" | ./libWebRTC.sh'
-      path: ./libwebrtc
-    displayName: Cache libWebRTC
 
   - script: ./CI/before-script-linux.sh
     displayName: 'CMake'
