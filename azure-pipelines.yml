@@ -9,6 +9,7 @@ variables:
   TWITCH-HASH: $(twitch_hash)
   RESTREAM-CLIENTID: $(restream_clientid)
   RESTREAM-HASH: $(restream_hash)
+  OBS_VERSION: 26.0
 
 jobs:
 - job: Prebuild
@@ -104,7 +105,8 @@ jobs:
 
   - bash: |
       cd ./build
-      sudo checkinstall --default --install=no --pkgname=obs-studio-webrtc --fstrans=yes --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
+      cpack -G DEB
+#      sudo checkinstall --default --install=no --pkgname=obs-studio-webrtc --fstrans=yes --backup=no --pkgversion="$(date +%Y%m%d)-git" --deldoc=yes
       mkdir ../package
       mv *.deb ../package/
       cd -
