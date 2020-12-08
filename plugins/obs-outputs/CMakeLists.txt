@@ -96,10 +96,14 @@ endif()
 
 message( STATUS "Looking for libwebrtc" )
 # CoSMo libwebrtc package has versioning and COMPONENTS
+message( STATUS "************* LUDO call find_package(LibWebRTC 84 QUIET COMPONENTS H264 )" )
 find_package(LibWebRTC 84 QUIET COMPONENTS H264 )
-  if( NOT libwebrtc_FOUND )
+message( STATUS "************* LUDO find_package(LibWebRTC 84 QUIET COMPONENTS H264 ) done" )
+if( NOT libwebrtc_FOUND )
     # A FindLibWebRTC package is also provided in the repository for self-compiled libwebrtc
+    message( STATUS "************* LUDO call find_package(LibWebRTC REQUIRED)" )
     find_package(LibWebRTC REQUIRED)
+    message( STATUS "************* LUDO find_package(LibWebRTC REQUIRED) done" )
   endif()
 message( STATUS "Looking for libwebrtc - found" )
 if( WEBRTC_H264_FOUND )
