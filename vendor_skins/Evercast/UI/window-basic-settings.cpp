@@ -299,7 +299,7 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 			     ui->advOutTrack4Bitrate, ui->advOutTrack5Bitrate,
 			     ui->advOutTrack6Bitrate});
 
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
 
 	/* clang-format off */
@@ -493,7 +493,7 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 	// HookWidget(ui->autoRemux,            CHECK_CHANGED,  ADV_CHANGED);
 	/* clang-format on */
 
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
 	// ui->simpleOutputVBitrate->setSingleStep(50);
 	// ui->simpleOutputVBitrate->setSuffix(" Kbps");
 	ui->advOutFFVBitrate->setSingleStep(50);
@@ -582,13 +582,13 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 
 	connect(ui->streamDelaySec, SIGNAL(valueChanged(int)), this,
 		SLOT(UpdateStreamDelayEstimate()));
-  // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+	// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
 	// connect(ui->outputMode, SIGNAL(currentIndexChanged(int)), this,
 	connect(ui->outputModeButtonGroup, SIGNAL(buttonClicked(int)), this,
 		SLOT(UpdateStreamDelayEstimate()));
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
-	connect(ui->simpleOutputVBitrate, SIGNAL(textChanged(const QString &)), this,
-		SLOT(UpdateStreamDelayEstimate()));
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	connect(ui->simpleOutputVBitrate, SIGNAL(textChanged(const QString &)),
+		this, SLOT(UpdateStreamDelayEstimate()));
 	connect(ui->simpleOutputABitrate, SIGNAL(currentIndexChanged(int)),
 		this, SLOT(UpdateStreamDelayEstimate()));
 	connect(ui->advOutTrack1Bitrate, SIGNAL(currentIndexChanged(int)), this,
@@ -664,7 +664,7 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 		SLOT(SurroundWarning(int)));
 	connect(ui->channelSetup, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(SpeakerLayoutChanged(int)));
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// connect(ui->simpleOutRecQuality, SIGNAL(currentIndexChanged(int)), this,
 	// 	SLOT(SimpleRecordingQualityChanged()));
 	// connect(ui->simpleOutRecQuality, SIGNAL(currentIndexChanged(int)), this,
@@ -675,27 +675,27 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 		SLOT(SimpleStreamingEncoderChanged()));
 	connect(ui->simpleOutStrEncoder, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(SimpleRecordingEncoderChanged()));
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// connect(ui->simpleOutRecEncoder, SIGNAL(currentIndexChanged(int)), this,
 	// 	SLOT(SimpleRecordingEncoderChanged()));
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
-	connect(ui->simpleOutputVBitrate, SIGNAL(textChanged(const QString &)), this,
-		SLOT(SimpleRecordingEncoderChanged()));
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	connect(ui->simpleOutputVBitrate, SIGNAL(textChanged(const QString &)),
+		this, SLOT(SimpleRecordingEncoderChanged()));
 	connect(ui->simpleOutputABitrate, SIGNAL(currentIndexChanged(int)),
 		this, SLOT(SimpleRecordingEncoderChanged()));
 	connect(ui->simpleOutAdvanced, SIGNAL(toggled(bool)), this,
 		SLOT(SimpleRecordingEncoderChanged()));
 	connect(ui->simpleOutEnforce, SIGNAL(toggled(bool)), this,
 		SLOT(SimpleRecordingEncoderChanged()));
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// connect(ui->simpleReplayBuf, SIGNAL(toggled(bool)), this,
 	// 	SLOT(SimpleReplayBufferChanged()));
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
-	connect(ui->simpleOutputVBitrate, SIGNAL(textChanged(const QString &)), this,
-		SLOT(SimpleReplayBufferChanged()));
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	connect(ui->simpleOutputVBitrate, SIGNAL(textChanged(const QString &)),
+		this, SLOT(SimpleReplayBufferChanged()));
 	connect(ui->simpleOutputABitrate, SIGNAL(currentIndexChanged(int)),
 		this, SLOT(SimpleReplayBufferChanged()));
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// connect(ui->simpleRBSecMax, SIGNAL(valueChanged(int)), this,
 	// 	SLOT(SimpleReplayBufferChanged()));
 	connect(ui->advReplayBuf, SIGNAL(toggled(bool)), this,
@@ -730,34 +730,34 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 		SLOT(AdvReplayBufferChanged()));
 	connect(ui->advRBSecMax, SIGNAL(valueChanged(int)), this,
 		SLOT(AdvReplayBufferChanged()));
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// connect(ui->listWidget, SIGNAL(currentRowChanged(int)), this,
 	// 	SLOT(SimpleRecordingEncoderChanged()));
 
-  // The ID of each QPushButton of the QButtonGroup is used to display the corresponding QWidget
-  // of the QStackedWidget named "settingPages"
-  ui->basicSettingsButtonGroup->setId(ui->SettingsGeneralButton,  0);
-  ui->basicSettingsButtonGroup->setId(ui->SettingsStreamButton,   1);
-  ui->basicSettingsButtonGroup->setId(ui->SettingsOutputButton,   2);
-  ui->basicSettingsButtonGroup->setId(ui->SettingsAudioButton,    3);
-  ui->basicSettingsButtonGroup->setId(ui->SettingsVideoButton,    4);
-  ui->basicSettingsButtonGroup->setId(ui->SettingsHotkeysButton,  5);
-  ui->basicSettingsButtonGroup->setId(ui->SettingsAdvancedButton, 6);
+	// The ID of each QPushButton of the QButtonGroup is used to display the corresponding QWidget
+	// of the QStackedWidget named "settingPages"
+	ui->basicSettingsButtonGroup->setId(ui->SettingsGeneralButton, 0);
+	ui->basicSettingsButtonGroup->setId(ui->SettingsStreamButton, 1);
+	ui->basicSettingsButtonGroup->setId(ui->SettingsOutputButton, 2);
+	ui->basicSettingsButtonGroup->setId(ui->SettingsAudioButton, 3);
+	ui->basicSettingsButtonGroup->setId(ui->SettingsVideoButton, 4);
+	ui->basicSettingsButtonGroup->setId(ui->SettingsHotkeysButton, 5);
+	ui->basicSettingsButtonGroup->setId(ui->SettingsAdvancedButton, 6);
 	// connect(ui->basicSettingsButtonGroup, SIGNAL(buttonClicked(int)),
 	// 		this, SLOT(SimpleRecordingEncoderChanged()));
 
-  // NOTE LUDO: #172 codecs list of radio buttons
-  ui->codecButtonGroup->setId(ui->h264RadioButton, 0);
-  ui->codecButtonGroup->setId(ui->vp8RadioButton,  1);
-  ui->codecButtonGroup->setId(ui->vp9RadioButton,  2);
+	// NOTE LUDO: #172 codecs list of radio buttons
+	ui->codecButtonGroup->setId(ui->h264RadioButton, 0);
+	ui->codecButtonGroup->setId(ui->vp8RadioButton, 1);
+	ui->codecButtonGroup->setId(ui->vp9RadioButton, 2);
 
-  // NOTE LUDO: #173 replace Settings/Stream service Evercast combo box by a radio button
-  ui->serviceButtonGroup->setId(ui->evercastRadioButton, 1);
+	// NOTE LUDO: #173 replace Settings/Stream service Evercast combo box by a radio button
+	ui->serviceButtonGroup->setId(ui->evercastRadioButton, 1);
 
-  // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
-  // simple mode = ID 0
-  // advanced mode = ID 1
-  ui->outputModeButtonGroup->setId(ui->simpleModeRadioButton, 0);
+	// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+	// simple mode = ID 0
+	// advanced mode = ID 1
+	ui->outputModeButtonGroup->setId(ui->simpleModeRadioButton, 0);
 
 	// Get Bind to IP Addresses
 	obs_properties_t *ppts = obs_get_output_properties("rtmp_output");
@@ -795,18 +795,18 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 		SLOT(AdvOutRecCheckWarnings()));
 	AdvOutRecCheckWarnings();
 
-  // NOTE LUDO #169: Settings/Output no access to encoder settings except Video Bitrate
-  ui->simpleOutStrEncoder->setEnabled(false);
-  ui->simpleOutAdvanced->setEnabled(false);
-  ui->simpleOutEnforce->setEnabled(false);
-  ui->simpleOutPreset->setEnabled(false);
-  ui->simpleOutCustom->setEnabled(false);
+	// NOTE LUDO #169: Settings/Output no access to encoder settings except Video Bitrate
+	ui->simpleOutStrEncoder->setEnabled(false);
+	ui->simpleOutAdvanced->setEnabled(false);
+	ui->simpleOutEnforce->setEnabled(false);
+	ui->simpleOutPreset->setEnabled(false);
+	ui->simpleOutCustom->setEnabled(false);
 
-  // NOTE LUDO: #184 Settings/Stream disable entry "Username"
-  ui->authUsernameLabel->setEnabled(false);
-  ui->authUsernameLabel->setVisible(false);
-  ui->authUsername->setEnabled(false);
-  ui->authUsername->setVisible(false);
+	// NOTE LUDO: #184 Settings/Stream disable entry "Username"
+	ui->authUsernameLabel->setEnabled(false);
+	ui->authUsernameLabel->setVisible(false);
+	ui->authUsername->setEnabled(false);
+	ui->authUsername->setVisible(false);
 
 	ui->buttonBox->button(QDialogButtonBox::Apply)->setIcon(QIcon());
 	ui->buttonBox->button(QDialogButtonBox::Ok)->setIcon(QIcon());
@@ -823,7 +823,7 @@ OBSBasicSettings::~OBSBasicSettings()
 {
 	bool disableHotkeysInFocus = config_get_bool(
 		App()->GlobalConfig(), "General", "DisableHotkeysInFocus");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// delete ui->filenameFormatting->completer();
 	main->EnableOutputs(true);
 	App()->EnableInFocusHotkeys(!disableHotkeysInFocus);
@@ -1135,7 +1135,7 @@ void OBSBasicSettings::LoadGeneralSettings()
 						  "OpenStatsOnStartup");
 	ui->openStatsOnStartup->setChecked(openStatsOnStartup);
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// bool recordWhenStreaming = config_get_bool(
 	// 	GetGlobalConfig(), "BasicWindow", "RecordWhenStreaming");
 	// ui->recordWhenStreaming->setChecked(recordWhenStreaming);
@@ -1145,7 +1145,7 @@ void OBSBasicSettings::LoadGeneralSettings()
 	// 			"KeepRecordingWhenStreamStops");
 	// ui->keepRecordStreamStops->setChecked(keepRecordStreamStops);
 
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// bool replayWhileStreaming = config_get_bool(
 	// 	GetGlobalConfig(), "BasicWindow", "ReplayBufferWhileStreaming");
 	// ui->replayWhileStreaming->setChecked(replayWhileStreaming);
@@ -1199,7 +1199,7 @@ void OBSBasicSettings::LoadGeneralSettings()
 		GetGlobalConfig(), "BasicWindow", "WarnBeforeStoppingStream");
 	ui->warnBeforeStreamStop->setChecked(warnBeforeStreamStop);
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// bool warnBeforeRecordStop = config_get_bool(
 	// 	GetGlobalConfig(), "BasicWindow", "WarnBeforeStoppingRecord");
 	// ui->warnBeforeRecordStop->setChecked(warnBeforeRecordStop);
@@ -1543,7 +1543,7 @@ static inline bool IsSurround(const char *speakers)
 
 void OBSBasicSettings::LoadSimpleOutputSettings()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// const char *path =
 	// 	config_get_string(main->Config(), "SimpleOutput", "FilePath");
 	// bool noSpace = config_get_bool(main->Config(), "SimpleOutput",
@@ -1552,7 +1552,7 @@ void OBSBasicSettings::LoadSimpleOutputSettings()
 	// 	config_get_string(main->Config(), "SimpleOutput", "RecFormat");
 	int videoBitrate =
 		config_get_uint(main->Config(), "SimpleOutput", "VBitrate");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// const char *streamEnc = config_get_string(
 	// 	main->Config(), "SimpleOutput", "StreamEncoder");
 	int audioBitrate =
@@ -1571,7 +1571,7 @@ void OBSBasicSettings::LoadSimpleOutputSettings()
 		config_get_string(main->Config(), "SimpleOutput", "AMDPreset");
 	const char *custom = config_get_string(main->Config(), "SimpleOutput",
 					       "x264Settings");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// const char *recQual =
 	// 	config_get_string(main->Config(), "SimpleOutput", "RecQuality");
 	// const char *recEnc =
@@ -1580,7 +1580,7 @@ void OBSBasicSettings::LoadSimpleOutputSettings()
 	// 	main->Config(), "SimpleOutput", "MuxerCustom");
 	// bool replayBuf =
 	// 	config_get_bool(main->Config(), "SimpleOutput", "RecRB");
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// int rbTime =
 	// 	config_get_int(main->Config(), "SimpleOutput", "RecRBTime");
 	// int rbSize =
@@ -1593,13 +1593,14 @@ void OBSBasicSettings::LoadSimpleOutputSettings()
 
 	audioBitrate = FindClosestAvailableAACBitrate(audioBitrate);
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->simpleOutputPath->setText(path);
 	// ui->simpleNoSpace->setChecked(noSpace);
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
-	ui->simpleOutputVBitrate->setText(QString::fromStdString(std::to_string(videoBitrate)));
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	ui->simpleOutputVBitrate->setText(
+		QString::fromStdString(std::to_string(videoBitrate)));
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// int idx = ui->simpleOutRecFormat->findText(format);
 	// ui->simpleOutRecFormat->setCurrentIndex(idx);
 
@@ -1617,7 +1618,7 @@ void OBSBasicSettings::LoadSimpleOutputSettings()
 	ui->simpleOutEnforce->setChecked(enforceBitrate);
 	ui->simpleOutCustom->setText(custom);
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// idx = ui->simpleOutRecQuality->findData(QString(recQual));
 	// if (idx == -1)
 	// 	idx = 0;
@@ -1636,7 +1637,7 @@ void OBSBasicSettings::LoadSimpleOutputSettings()
 	// ui->simpleOutMuxCustom->setText(muxCustom);
 
 	// ui->simpleReplayBuf->setChecked(replayBuf);
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// ui->simpleRBSecMax->setValue(rbTime);
 	// ui->simpleRBMegsMax->setValue(rbSize);
 
@@ -1662,7 +1663,7 @@ void OBSBasicSettings::LoadAdvOutputStreamingSettings()
 	QCompleter *specCompleter = new QCompleter(specList);
 	specCompleter->setCaseSensitivity(Qt::CaseSensitive);
 	specCompleter->setFilterMode(Qt::MatchContains);
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->filenameFormatting->setCompleter(specCompleter);
 	// ui->filenameFormatting->setToolTip(QTStr("FilenameFormatting.TT"));
 
@@ -1980,12 +1981,12 @@ void OBSBasicSettings::LoadOutputSettings()
 
 	const char *mode = config_get_string(main->Config(), "Output", "Mode");
 
-  // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+	// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
 	// int modeIdx = astrcmpi(mode, "Advanced") == 0 ? 1 : 0;
 	// ui->outputMode->setCurrentIndex(modeIdx);
 
 	LoadSimpleOutputSettings();
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// LoadAdvOutputStreamingSettings();
 	// LoadAdvOutputStreamingEncoderProperties();
 	// LoadAdvOutputRecordingSettings();
@@ -1994,13 +1995,13 @@ void OBSBasicSettings::LoadOutputSettings()
 	// LoadAdvOutputAudioSettings();
 
 	if (obs_video_active()) {
-    // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+		// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
 		// ui->outputMode->setEnabled(false);
-    ui->simpleModeRadioButton->setEnabled(false);
+		ui->simpleModeRadioButton->setEnabled(false);
 		ui->outputModeLabel->setEnabled(false);
-    // NOTE LUDO: #165 Remove button recording
+		// NOTE LUDO: #165 Remove button recording
 		// ui->simpleRecordingGroupBox->setEnabled(false);
-    // NOTE LUDO: #166 Remove replay
+		// NOTE LUDO: #166 Remove replay
 		// ui->replayBufferGroupBox->setEnabled(false);
 		ui->advOutTopContainer->setEnabled(false);
 		ui->advOutRecTopContainer->setEnabled(false);
@@ -2328,14 +2329,14 @@ void OBSBasicSettings::LoadAdvancedSettings()
 	bool reconnect = config_get_bool(main->Config(), "Output", "Reconnect");
 	int retryDelay = config_get_int(main->Config(), "Output", "RetryDelay");
 	int maxRetries = config_get_int(main->Config(), "Output", "MaxRetries");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// const char *filename = config_get_string(main->Config(), "Output",
 	// 					 "FilenameFormatting");
 	// bool overwriteIfExists =
 	// 	config_get_bool(main->Config(), "Output", "OverwriteIfExists");
 	const char *bindIP =
 		config_get_string(main->Config(), "Output", "BindIP");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// const char *rbPrefix = config_get_string(main->Config(), "SimpleOutput",
 	// 					 "RecRBPrefix");
 	// const char *rbSuffix = config_get_string(main->Config(), "SimpleOutput",
@@ -2343,7 +2344,7 @@ void OBSBasicSettings::LoadAdvancedSettings()
 	bool replayBuf = config_get_bool(main->Config(), "AdvOut", "RecRB");
 	int rbTime = config_get_int(main->Config(), "AdvOut", "RecRBTime");
 	int rbSize = config_get_int(main->Config(), "AdvOut", "RecRBSize");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// bool autoRemux = config_get_bool(main->Config(), "Video", "AutoRemux");
 
 	loading = true;
@@ -2355,7 +2356,7 @@ void OBSBasicSettings::LoadAdvancedSettings()
 		SetInvalidValue(ui->monitoringDevice, monDevName, monDevId);
 #endif
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->filenameFormatting->setText(filename);
 	// ui->overwriteIfExists->setChecked(overwriteIfExists);
 	// ui->simpleRBPrefix->setText(rbPrefix);
@@ -2372,7 +2373,7 @@ void OBSBasicSettings::LoadAdvancedSettings()
 	ui->streamDelaySec->setValue(delaySec);
 	ui->streamDelayPreserve->setChecked(preserveDelay);
 	ui->streamDelayEnable->setChecked(enableDelay);
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->autoRemux->setChecked(autoRemux);
 
 	SetComboByName(ui->colorFormat, videoColorFormat);
@@ -2864,7 +2865,7 @@ void OBSBasicSettings::SaveGeneralSettings()
 	config_set_bool(GetGlobalConfig(), "BasicWindow",
 			"WarnBeforeStoppingStream",
 			ui->warnBeforeStreamStop->isChecked());
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// config_set_bool(GetGlobalConfig(), "BasicWindow",
 	// 		"WarnBeforeStoppingRecord",
 	// 		ui->warnBeforeRecordStop->isChecked());
@@ -2875,7 +2876,7 @@ void OBSBasicSettings::SaveGeneralSettings()
 			"ProjectorAlwaysOnTop",
 			ui->projectorAlwaysOnTop->isChecked());
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// if (WidgetChanged(ui->recordWhenStreaming))
 	// 	config_set_bool(GetGlobalConfig(), "BasicWindow",
 	// 			"RecordWhenStreaming",
@@ -2885,7 +2886,7 @@ void OBSBasicSettings::SaveGeneralSettings()
 	// 			"KeepRecordingWhenStreamStops",
 	// 			ui->keepRecordStreamStops->isChecked());
 
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// if (WidgetChanged(ui->replayWhileStreaming))
 	// 	config_set_bool(GetGlobalConfig(), "BasicWindow",
 	// 			"ReplayBufferWhileStreaming",
@@ -3061,7 +3062,7 @@ void OBSBasicSettings::SaveAdvancedSettings()
 	}
 #endif
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// SaveEdit(ui->filenameFormatting, "Output", "FilenameFormatting");
 	// SaveEdit(ui->simpleRBPrefix, "SimpleOutput", "RecRBPrefix");
 	// SaveEdit(ui->simpleRBSuffix, "SimpleOutput", "RecRBSuffix");
@@ -3073,7 +3074,7 @@ void OBSBasicSettings::SaveAdvancedSettings()
 	SaveSpinBox(ui->reconnectRetryDelay, "Output", "RetryDelay");
 	SaveSpinBox(ui->reconnectMaxRetries, "Output", "MaxRetries");
 	SaveComboData(ui->bindToIP, "Output", "BindIP");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// SaveCheckBox(ui->autoRemux, "Video", "AutoRemux");
 
 #if defined(_WIN32) || defined(__APPLE__) || HAVE_PULSEAUDIO
@@ -3093,11 +3094,11 @@ void OBSBasicSettings::SaveAdvancedSettings()
 
 static inline const char *OutputModeFromIdx(int idx)
 {
-  // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+	// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
 	// if (idx == 1)
 	// 	return "Advanced";
 	// else
-		return "Simple"; // idx == 0
+	return "Simple"; // idx == 0
 }
 
 static inline const char *RecTypeFromIdx(int idx)
@@ -3191,10 +3192,11 @@ void OBSBasicSettings::SaveEncoder(QComboBox *combo, const char *section,
 
 void OBSBasicSettings::SaveOutputSettings()
 {
-	config_set_string(main->Config(), "Output", "Mode",
-        // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
-			  // OutputModeFromIdx(ui->outputMode->currentIndex()));
-        OutputModeFromIdx(ui->outputModeButtonGroup->checkedId()));
+	config_set_string(
+		main->Config(), "Output", "Mode",
+		// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+		// OutputModeFromIdx(ui->outputMode->currentIndex()));
+		OutputModeFromIdx(ui->outputModeButtonGroup->checkedId()));
 
 	QString encoder = ui->simpleOutStrEncoder->currentData().toString();
 	const char *presetType;
@@ -3208,12 +3210,12 @@ void OBSBasicSettings::SaveOutputSettings()
 	else
 		presetType = "Preset";
 
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
 	// SaveSpinBox(ui->simpleOutputVBitrate, "SimpleOutput", "VBitrate");
-  SaveEdit(ui->simpleOutputVBitrate, "SimpleOutput", "VBitrate");
+	SaveEdit(ui->simpleOutputVBitrate, "SimpleOutput", "VBitrate");
 	SaveComboData(ui->simpleOutStrEncoder, "SimpleOutput", "StreamEncoder");
 	SaveCombo(ui->simpleOutputABitrate, "SimpleOutput", "ABitrate");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// SaveEdit(ui->simpleOutputPath, "SimpleOutput", "FilePath");
 	// SaveCheckBox(ui->simpleNoSpace, "SimpleOutput", "FileNameWithoutSpace");
 	// SaveCombo(ui->simpleOutRecFormat, "SimpleOutput", "RecFormat");
@@ -3221,12 +3223,12 @@ void OBSBasicSettings::SaveOutputSettings()
 	SaveCheckBox(ui->simpleOutEnforce, "SimpleOutput", "EnforceBitrate");
 	SaveComboData(ui->simpleOutPreset, "SimpleOutput", presetType);
 	SaveEdit(ui->simpleOutCustom, "SimpleOutput", "x264Settings");
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// SaveComboData(ui->simpleOutRecQuality, "SimpleOutput", "RecQuality");
 	// SaveComboData(ui->simpleOutRecEncoder, "SimpleOutput", "RecEncoder");
 	// SaveEdit(ui->simpleOutMuxCustom, "SimpleOutput", "MuxerCustom");
 	// SaveCheckBox(ui->simpleReplayBuf, "SimpleOutput", "RecRB");
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// SaveSpinBox(ui->simpleRBSecMax, "SimpleOutput", "RecRBTime");
 	// SaveSpinBox(ui->simpleRBMegsMax, "SimpleOutput", "RecRBSize");
 
@@ -3607,7 +3609,7 @@ void OBSBasicSettings::on_buttonBox_clicked(QAbstractButton *button)
 
 void OBSBasicSettings::on_simpleOutputBrowse_clicked()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// QString dir = QFileDialog::getExistingDirectory(
 	// 	this, QTStr("Basic.Settings.Output.SelectDirectory"),
 	// 	ui->simpleOutputPath->text(),
@@ -3827,7 +3829,7 @@ void OBSBasicSettings::on_filenameFormatting_textEdited(const QString &text)
 	UNUSED_PARAMETER(text);
 #endif
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// if (invalidLocation != string::npos)
 	// 	ui->filenameFormatting->backspace();
 }
@@ -4075,12 +4077,12 @@ void OBSBasicSettings::AdvOutRecCheckWarnings()
 		if (!warningMsg.isEmpty())
 			warningMsg += "\n\n";
 		warningMsg += QTStr("OutputWarnings.MP4Recording");
-    // NOTE LUDO: #165 Remove button recording
+		// NOTE LUDO: #165 Remove button recording
 		// ui->autoRemux->setText(
 		// 	QTStr("Basic.Settings.Advanced.AutoRemux") + " " +
 		// 	QTStr("Basic.Settings.Advanced.AutoRemux.MP4"));
 	} else {
-    // NOTE LUDO: #165 Remove button recording
+		// NOTE LUDO: #165 Remove button recording
 		// ui->autoRemux->setText(
 		// 	QTStr("Basic.Settings.Advanced.AutoRemux"));
 	}
@@ -4112,7 +4114,7 @@ static inline QString MakeMemorySizeString(int bitrate, int seconds)
 void OBSBasicSettings::UpdateSimpleOutStreamDelayEstimate()
 {
 	int seconds = ui->streamDelaySec->value();
-  // NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
+	// NOTE LUDO: #194 replace Settings/Output video bitrate QSpinBox by QLineEdit
 	int vBitrate = ui->simpleOutputVBitrate->text().split(" ")[0].toInt();
 	int aBitrate = ui->simpleOutputABitrate->currentText().toInt();
 
@@ -4162,9 +4164,9 @@ void OBSBasicSettings::UpdateAdvOutStreamDelayEstimate()
 
 void OBSBasicSettings::UpdateStreamDelayEstimate()
 {
-  // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+	// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
 	// if (ui->outputMode->currentIndex() == 0)
-		UpdateSimpleOutStreamDelayEstimate();
+	UpdateSimpleOutStreamDelayEstimate();
 	// else
 	// 	UpdateAdvOutStreamDelayEstimate();
 
@@ -4185,14 +4187,14 @@ bool EncoderAvailable(const char *encoder)
 
 void OBSBasicSettings::FillSimpleRecordingValues()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 // #define ADD_QUALITY(str)                                                     \
 // 	ui->simpleOutRecQuality->addItem(                                    \
 // 		QTStr("Basic.Settings.Output.Simple.RecordingQuality." str), \
 // 		QString(str));
 #define ENCODER_STR(str) QTStr("Basic.Settings.Output.Simple.Encoder." str)
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ADD_QUALITY("Stream");
 	// ADD_QUALITY("Small");
 	// ADD_QUALITY("HQ");
@@ -4211,7 +4213,7 @@ void OBSBasicSettings::FillSimpleRecordingValues()
 	// if (EncoderAvailable("amd_amf_h264"))
 	// 	ui->simpleOutRecEncoder->addItem(ENCODER_STR("Hardware.AMD"),
 	// 					 QString(SIMPLE_ENCODER_AMD));
-// #undef ADD_QUALITY
+	// #undef ADD_QUALITY
 }
 
 void OBSBasicSettings::FillSimpleStreamingValues()
@@ -4249,7 +4251,7 @@ void OBSBasicSettings::FillAudioMonitoringDevices()
 
 void OBSBasicSettings::SimpleRecordingQualityChanged()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// QString qual = ui->simpleOutRecQuality->currentData().toString();
 	// bool streamQuality = qual == "Stream";
 	// bool losslessQuality = !streamQuality && qual == "Lossless";
@@ -4341,18 +4343,18 @@ void OBSBasicSettings::SimpleStreamingEncoderChanged()
 void OBSBasicSettings::UpdateAutomaticReplayBufferCheckboxes()
 {
 	bool state = false;
-  // NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
+	// NOTE LUDO: #181 replace Settings/Output output mode Simple combo box by a radio button
 	// switch (ui->outputMode->currentIndex()) {
-  switch (ui->outputModeButtonGroup->checkedId()) {
+	switch (ui->outputModeButtonGroup->checkedId()) {
 	case 0:
-    // NOTE LUDO: #165 Remove button recording
+		// NOTE LUDO: #165 Remove button recording
 		// state = ui->simpleReplayBuf->isChecked();
 		break;
 	case 1:
 		state = ui->advReplayBuf->isChecked();
 		break;
 	}
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// ui->replayWhileStreaming->setEnabled(state);
 	// ui->keepReplayStreamStops->setEnabled(
 	// 	state && ui->replayWhileStreaming->isChecked());
@@ -4360,7 +4362,7 @@ void OBSBasicSettings::UpdateAutomaticReplayBufferCheckboxes()
 
 void OBSBasicSettings::SimpleReplayBufferChanged()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// QString qual = ui->simpleOutRecQuality->currentData().toString();
 	// bool replayBufferEnabled = ui->simpleReplayBuf->isChecked();
 	// bool lossless = qual == "Lossless";
@@ -4478,7 +4480,7 @@ void OBSBasicSettings::AdvReplayBufferChanged()
 
 void OBSBasicSettings::SimpleRecordingEncoderChanged()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// QString qual = ui->simpleOutRecQuality->currentData().toString();
 	// QString warning;
 	// bool advanced = ui->simpleOutAdvanced->isChecked();
@@ -4616,7 +4618,7 @@ void OBSBasicSettings::SimpleRecordingQualityLosslessWarning(int idx)
 	if (idx == lastSimpleRecQualityIdx || idx == -1)
 		return;
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// QString qual = ui->simpleOutRecQuality->itemData(idx).toString();
 
 	// if (loading) {
@@ -4659,42 +4661,42 @@ void OBSBasicSettings::on_disableOSXVSync_clicked()
 
 void OBSBasicSettings::SetGeneralIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(0)->setIcon(icon);
 }
 
 void OBSBasicSettings::SetStreamIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(1)->setIcon(icon);
 }
 
 void OBSBasicSettings::SetOutputIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(2)->setIcon(icon);
 }
 
 void OBSBasicSettings::SetAudioIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(3)->setIcon(icon);
 }
 
 void OBSBasicSettings::SetVideoIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(4)->setIcon(icon);
 }
 
 void OBSBasicSettings::SetHotkeysIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(5)->setIcon(icon);
 }
 
 void OBSBasicSettings::SetAdvancedIcon(const QIcon &icon)
 {
-  // NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
+	// NOTE LUDO #170: Settings: replace QListWidget by QPushButtons
 	// ui->listWidget->item(6)->setIcon(icon);
 }

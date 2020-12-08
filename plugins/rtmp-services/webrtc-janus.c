@@ -1,6 +1,6 @@
 /* Copyright Dr. Alex. Gouaillard (2015, 2020) */
 
-#include<obs-module.h>
+#include <obs-module.h>
 
 struct webrtc_janus {
 	char *server;
@@ -88,11 +88,13 @@ static obs_properties_t *webrtc_janus_properties(void *unused)
 	obs_properties_t *ppts = obs_properties_create();
 	obs_property_t *p;
 
-	obs_properties_add_text(ppts, "server", "Server Name", OBS_TEXT_DEFAULT);
+	obs_properties_add_text(ppts, "server", "Server Name",
+				OBS_TEXT_DEFAULT);
 	obs_properties_add_text(ppts, "room", "Server Room", OBS_TEXT_DEFAULT);
 
 	obs_properties_add_text(ppts, "username", "Username", OBS_TEXT_DEFAULT);
-	obs_properties_add_text(ppts, "password", "Stream Key", OBS_TEXT_DEFAULT);
+	obs_properties_add_text(ppts, "password", "Stream Key",
+				OBS_TEXT_DEFAULT);
 
 	obs_properties_add_text(ppts, "codec", "Codec", OBS_TEXT_DEFAULT);
 	obs_properties_add_text(ppts, "protocol", "Protocol", OBS_TEXT_DEFAULT);
@@ -182,18 +184,17 @@ static const char *webrtc_janus_get_output_type(void *data)
 }
 
 struct obs_service_info webrtc_janus_service = {
-	.id             = "webrtc_janus",
-	.get_name       = webrtc_janus_name,
-	.create         = webrtc_janus_create,
-	.destroy        = webrtc_janus_destroy,
-	.update         = webrtc_janus_update,
+	.id = "webrtc_janus",
+	.get_name = webrtc_janus_name,
+	.create = webrtc_janus_create,
+	.destroy = webrtc_janus_destroy,
+	.update = webrtc_janus_update,
 	.get_properties = webrtc_janus_properties,
-	.get_url        = webrtc_janus_url,
-	.get_key        = webrtc_janus_key,
-	.get_room       = webrtc_janus_room,
-	.get_username   = webrtc_janus_username,
-	.get_password   = webrtc_janus_password,
-	.get_codec      = webrtc_janus_codec,
-	.get_protocol   = webrtc_janus_protocol,
-	.get_output_type = webrtc_janus_get_output_type
-};
+	.get_url = webrtc_janus_url,
+	.get_key = webrtc_janus_key,
+	.get_room = webrtc_janus_room,
+	.get_username = webrtc_janus_username,
+	.get_password = webrtc_janus_password,
+	.get_codec = webrtc_janus_codec,
+	.get_protocol = webrtc_janus_protocol,
+	.get_output_type = webrtc_janus_get_output_type};

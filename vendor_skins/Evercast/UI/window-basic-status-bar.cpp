@@ -14,18 +14,18 @@ OBSBasicStatusBar::OBSBasicStatusBar(QWidget *parent)
 	  delayInfo(new QLabel),
 	  droppedFrames(new QLabel),
 	  streamTime(new QLabel),
-    // NOTE LUDO: #193 remove recording time information from main window
+	  // NOTE LUDO: #193 remove recording time information from main window
 	  // recordTime(new QLabel),
 	  cpuUsage(new QLabel),
-    // NOTE LUDO: #80 add getStats
-    getstatsTextBox(new QPlainTextEdit),
+	  // NOTE LUDO: #80 add getStats
+	  getstatsTextBox(new QPlainTextEdit),
 	  transparentPixmap(20, 20),
 	  greenPixmap(20, 20),
 	  grayPixmap(20, 20),
 	  redPixmap(20, 20)
 {
 	streamTime->setText(QString("LIVE: 00:00:00"));
-  // NOTE LUDO: #193 remove recording time information from main window
+	// NOTE LUDO: #193 remove recording time information from main window
 	// recordTime->setText(QString("REC: 00:00:00"));
 	cpuUsage->setText(QString("CPU: 0.0%, 0.00 fps"));
 
@@ -39,9 +39,9 @@ OBSBasicStatusBar::OBSBasicStatusBar(QWidget *parent)
 	kbps = new QLabel(brWidget);
 	brLayout->addWidget(kbps);
 
-  // NOTE LUDO: #80 add getStats
-  getstatsTextBox->setFixedSize(1, 1);
-  brLayout->addWidget(getstatsTextBox);
+	// NOTE LUDO: #80 add getStats
+	getstatsTextBox->setFixedSize(1, 1);
+	brLayout->addWidget(getstatsTextBox);
 
 	brWidget->setLayout(brLayout);
 
@@ -51,7 +51,7 @@ OBSBasicStatusBar::OBSBasicStatusBar(QWidget *parent)
 	droppedFrames->setAlignment(Qt::AlignVCenter);
 	streamTime->setAlignment(Qt::AlignRight);
 	streamTime->setAlignment(Qt::AlignVCenter);
-  // NOTE LUDO: #193 remove recording time information from main window
+	// NOTE LUDO: #193 remove recording time information from main window
 	// recordTime->setAlignment(Qt::AlignRight);
 	// recordTime->setAlignment(Qt::AlignVCenter);
 	cpuUsage->setAlignment(Qt::AlignRight);
@@ -62,14 +62,14 @@ OBSBasicStatusBar::OBSBasicStatusBar(QWidget *parent)
 	delayInfo->setIndent(20);
 	droppedFrames->setIndent(20);
 	streamTime->setIndent(20);
-  // NOTE LUDO: #193 remove recording time information from main window
+	// NOTE LUDO: #193 remove recording time information from main window
 	// recordTime->setIndent(20);
 	cpuUsage->setIndent(20);
 	kbps->setIndent(10);
 
 	addPermanentWidget(droppedFrames);
 	addPermanentWidget(streamTime);
-  // NOTE LUDO: #193 remove recording time information from main window
+	// NOTE LUDO: #193 remove recording time information from main window
 	// addPermanentWidget(recordTime);
 	addPermanentWidget(cpuUsage);
 	addPermanentWidget(delayInfo);
@@ -120,7 +120,7 @@ void OBSBasicStatusBar::Deactivate()
 	}
 
 	if (!recordOutput) {
-    // NOTE LUDO: #193 remove recording time information from main window
+		// NOTE LUDO: #193 remove recording time information from main window
 		// recordTime->setText(QString("REC: 00:00:00"));
 		totalRecordSeconds = 0;
 	}
@@ -131,8 +131,8 @@ void OBSBasicStatusBar::Deactivate()
 		delayInfo->setText("");
 		droppedFrames->setText("");
 		kbps->setText("");
-    // NOTE LUDO: #80 add getStats
-    getstatsTextBox->setPlainText("");
+		// NOTE LUDO: #80 add getStats
+		getstatsTextBox->setPlainText("");
 
 		delaySecTotal = 0;
 		delaySecStarting = 0;
@@ -176,18 +176,18 @@ void OBSBasicStatusBar::UpdateDelayMsg()
 // NOTE LUDO: #80 add getStats
 void OBSBasicStatusBar::UpdateStats()
 {
-  if (!streamOutput)
-    return;
+	if (!streamOutput)
+		return;
 
 	if (++statsUpdateSeconds < STATS_UPDATE_SECONDS)
 		return;
 
 	statsUpdateSeconds = 0;
 
-  obs_output_get_stats(streamOutput);
-  QString msg = "";
-  msg.append(streamOutput ? obs_output_get_stats_list(streamOutput) : "");
-  getstatsTextBox->setPlainText(msg);
+	obs_output_get_stats(streamOutput);
+	QString msg = "";
+	msg.append(streamOutput ? obs_output_get_stats_list(streamOutput) : "");
+	getstatsTextBox->setPlainText(msg);
 }
 
 void OBSBasicStatusBar::UpdateBandwidth()
@@ -292,7 +292,7 @@ void OBSBasicStatusBar::UpdateRecordTime()
 		text.sprintf("REC: %02d:%02d:%02d", hours, minutes, seconds);
 	}
 
-  // NOTE LUDO: #193 remove recording time information from main window
+	// NOTE LUDO: #193 remove recording time information from main window
 	// recordTime->setText(text);
 	// recordTime->setMinimumWidth(recordTime->width());
 }
@@ -418,8 +418,8 @@ void OBSBasicStatusBar::UpdateStatusBar()
 {
 	OBSBasic *main = qobject_cast<OBSBasic *>(parent());
 
-  // NOTE LUDO: #80 add getStats
-  UpdateStats();
+	// NOTE LUDO: #80 add getStats
+	UpdateStats();
 
 	UpdateBandwidth();
 

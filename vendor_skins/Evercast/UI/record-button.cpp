@@ -11,7 +11,7 @@ void RecordButton::resizeEvent(QResizeEvent *event)
 
 	QSize newSize = event->size();
 	QSize pauseSize = main->pause->size();
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// int height = main->ui->recordButton->size().height();
 
 	// if (pauseSize.height() != height || pauseSize.width() != height) {

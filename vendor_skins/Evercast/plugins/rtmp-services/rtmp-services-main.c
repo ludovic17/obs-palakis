@@ -76,7 +76,7 @@ static void refresh_callback(void *unused, calldata_t *cd)
 
 bool obs_module_load(void)
 {
-  // NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
+	// NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
 	// init_twitch_data();
 
 	dstr_copy(&module_name, "rtmp-services plugin (libobs ");
@@ -99,14 +99,13 @@ bool obs_module_load(void)
 						 confirm_service_file, NULL);
 	}
 
-  // NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
+	// NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
 	// load_twitch_data();
 
 	bfree(local_dir);
 	bfree(cache_dir);
 #endif
 
-  
 	// obs_register_service(&rtmp_common_service);
 	// obs_register_service(&rtmp_custom_service);
 	// obs_register_service(&webrtc_janus_service);

@@ -24,9 +24,9 @@ class WidgetInfo : public QObject {
 private:
 	OBSPropertiesView *view;
 	obs_property_t *property;
-  // NOTE LUDO: #172 codecs list of radio buttons
+	// NOTE LUDO: #172 codecs list of radio buttons
 	// QWidget *widget;
-  QObject           *object;
+	QObject *object;
 
 	void BoolChanged(const char *setting);
 	void IntChanged(const char *setting);
@@ -34,8 +34,8 @@ private:
 	void TextChanged(const char *setting);
 	bool PathChanged(const char *setting);
 	void ListChanged(const char *setting);
-  // NOTE LUDO: #172 codecs list of radio buttons
-  void ButtonGroupChanged(const char *settings);
+	// NOTE LUDO: #172 codecs list of radio buttons
+	void ButtonGroupChanged(const char *settings);
 	bool ColorChanged(const char *setting);
 	bool FontChanged(const char *setting);
 	void GroupChanged(const char *setting);
@@ -46,7 +46,7 @@ private:
 
 public:
 	inline WidgetInfo(OBSPropertiesView *view_, obs_property_t *prop,
-        // NOTE LUDO: #172 codecs list of radio buttons
+			  // NOTE LUDO: #172 codecs list of radio buttons
 			  // QWidget *widget_)
 			  QObject *widget_)
 		// : view(view_), property(prop), widget(widget_)
@@ -107,7 +107,7 @@ private:
 	QWidget *AddList(obs_property_t *prop, bool &warning);
 	void AddEditableList(obs_property_t *prop, QFormLayout *layout,
 			     QLabel *&label);
-  // NOTE LUDO: #172 codecs list of radio buttons
+	// NOTE LUDO: #172 codecs list of radio buttons
 	QWidget *AddButtonGroup(obs_property_t *prop, bool &warning);
 	QWidget *AddButton(obs_property_t *prop);
 	void AddColor(obs_property_t *prop, QFormLayout *layout,

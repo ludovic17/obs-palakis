@@ -879,25 +879,25 @@ void obs_output_set_reconnect_settings(obs_output_t *output, int retry_count,
 // NOTE LUDO: #80 add getStats
 void obs_output_get_stats(const obs_output_t *output)
 {
-  if (!obs_output_valid(output, "obs_output_get_stats"))
-    return;
-  if (!output->info.get_stats)
-    return;
+	if (!obs_output_valid(output, "obs_output_get_stats"))
+		return;
+	if (!output->info.get_stats)
+		return;
 
-  if (delay_active(output) && !delay_capturing(output))
-    return;
+	if (delay_active(output) && !delay_capturing(output))
+		return;
 
-  output->info.get_stats(output->context.data);
+	output->info.get_stats(output->context.data);
 }
 
 const char *obs_output_get_stats_list(const obs_output_t *output)
 {
-  if (!obs_output_valid(output, "obs_output_get_stats_list"))
-    return NULL;
-  if (!output->info.get_stats_list)
-    return NULL;
+	if (!obs_output_valid(output, "obs_output_get_stats_list"))
+		return NULL;
+	if (!output->info.get_stats_list)
+		return NULL;
 
-  return output->info.get_stats_list(output->context.data);
+	return output->info.get_stats_list(output->context.data);
 }
 
 uint64_t obs_output_get_total_bytes(const obs_output_t *output)

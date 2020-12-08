@@ -18,13 +18,13 @@ private:
 	QLabel *delayInfo;
 	QLabel *droppedFrames;
 	QLabel *streamTime;
-  // NOTE LUDO: #193 remove recording time information from main window
+	// NOTE LUDO: #193 remove recording time information from main window
 	// QLabel *recordTime;
 	QLabel *cpuUsage;
 	QLabel *kbps;
 	QLabel *statusSquare;
-  // NOTE LUDO: #80 add getStats
-  QPlainTextEdit *getstatsTextBox;
+	// NOTE LUDO: #80 add getStats
+	QPlainTextEdit *getstatsTextBox;
 
 	obs_output_t *streamOutput = nullptr;
 	obs_output_t *recordOutput = nullptr;
@@ -64,8 +64,8 @@ private:
 	void Deactivate();
 
 	void UpdateDelayMsg();
-  // NOTE LUDO: #80 add getStats
-  void UpdateStats();
+	// NOTE LUDO: #80 add getStats
+	void UpdateStats();
 	void UpdateBandwidth();
 	void UpdateStreamTime();
 	void UpdateRecordTime();

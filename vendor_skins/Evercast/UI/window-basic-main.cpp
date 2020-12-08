@@ -122,8 +122,9 @@ static void AddExtraModulePaths()
 {
 	char base_module_dir[512];
 #if defined(_WIN32) || defined(__APPLE__)
-	int ret = GetProgramDataPath(base_module_dir, sizeof(base_module_dir),
-				     (config_dir + "/plugins/%module%").c_str());
+	int ret =
+		GetProgramDataPath(base_module_dir, sizeof(base_module_dir),
+				   (config_dir + "/plugins/%module%").c_str());
 #else
 	int ret = GetConfigPath(base_module_dir, sizeof(base_module_dir),
 				(config_dir + "/plugins/%module%").c_str());
@@ -136,10 +137,10 @@ static void AddExtraModulePaths()
 #if defined(__APPLE__)
 	obs_add_module_path((path + "/bin").c_str(), (path + "/data").c_str());
 
-	BPtr<char> config_bin =
-		os_get_config_path_ptr((config_dir + "/plugins/%module%/bin").c_str());
-	BPtr<char> config_data =
-		os_get_config_path_ptr((config_dir + "/plugins/%module%/data").c_str());
+	BPtr<char> config_bin = os_get_config_path_ptr(
+		(config_dir + "/plugins/%module%/bin").c_str());
+	BPtr<char> config_data = os_get_config_path_ptr(
+		(config_dir + "/plugins/%module%/data").c_str());
 	obs_add_module_path(config_bin, config_data);
 
 #elif ARCH_BITS == 64
@@ -1097,7 +1098,7 @@ bool OBSBasic::LoadService()
 	obs_data_t *data =
 		obs_data_create_from_json_file_safe(serviceJsonPath, "bak");
 
-  // NOTE LUDO: make evercast the dafault service instead of rtmp_common
+	// NOTE LUDO: make evercast the dafault service instead of rtmp_common
 	obs_data_set_default_string(data, "type", "webrtc_evercast");
 	type = obs_data_get_string(data, "type");
 
@@ -1122,10 +1123,10 @@ bool OBSBasic::InitService()
 	if (LoadService())
 		return true;
 
-  // NOTE LUDO: #182 make evercast the dafault service instead of rtmp_common
+	// NOTE LUDO: #182 make evercast the dafault service instead of rtmp_common
 	// service = obs_service_create("rtmp_common", "default_service", nullptr,
-	service = obs_service_create("webrtc_evercast", "default_service", nullptr,
-				     nullptr);
+	service = obs_service_create("webrtc_evercast", "default_service",
+				     nullptr, nullptr);
 	if (!service)
 		return false;
 	obs_service_release(service);
@@ -1289,7 +1290,7 @@ bool OBSBasic::InitBasicConfigDefaults()
 	config_set_default_bool(basicConfig, "Output", "LowLatencyEnable",
 				false);
 
-  // NOTE LUDO: #116 set default temporal and spatial resolutions
+	// NOTE LUDO: #116 set default temporal and spatial resolutions
 	// int i = 0;
 	uint32_t scale_cx = cx;
 	uint32_t scale_cy = cy;
@@ -1319,9 +1320,10 @@ bool OBSBasic::InitBasicConfigDefaults()
 	config_set_default_uint(basicConfig, "Video", "FPSInt", 30);
 	config_set_default_uint(basicConfig, "Video", "FPSNum", 30);
 	config_set_default_uint(basicConfig, "Video", "FPSDen", 1);
-  // NOTE LUDO: #116 set default temporal and spatial resolutions
+	// NOTE LUDO: #116 set default temporal and spatial resolutions
 	// config_set_default_string(basicConfig, "Video", "ScaleType", "bicubic");
-	config_set_default_string(basicConfig, "Video", "ScaleType", "bilinear");
+	config_set_default_string(basicConfig, "Video", "ScaleType",
+				  "bilinear");
 	config_set_default_string(basicConfig, "Video", "ColorFormat", "NV12");
 	config_set_default_string(basicConfig, "Video", "ColorSpace", "709");
 	config_set_default_string(basicConfig, "Video", "ColorRange",
@@ -1535,7 +1537,8 @@ void OBSBasic::OBSInit()
 	if (!sceneCollection)
 		throw "Failed to get scene collection name";
 
-	ret = snprintf(fileName, 512, (config_dir + "/basic/scenes/%s.json").c_str(),
+	ret = snprintf(fileName, 512,
+		       (config_dir + "/basic/scenes/%s.json").c_str(),
 		       sceneCollection);
 	if (ret <= 0)
 		throw "Failed to create scene collection file name";
@@ -1642,7 +1645,7 @@ void OBSBasic::OBSInit()
 		disableSaving++;
 	}
 
-  // NOTE LUDO: #186 do not check for OBS Studio updates
+	// NOTE LUDO: #186 do not check for OBS Studio updates
 	// TimedCheckForUpdates();
 	loaded = true;
 
@@ -1811,16 +1814,16 @@ void OBSBasic::OBSInit()
 	delete ui->actionShowCrashLogs;
 	delete ui->actionUploadLastCrashLog;
 	delete ui->menuCrashLogs;
-  // NOTE LUDO: #186 do not check for OBS Studio updates
+	// NOTE LUDO: #186 do not check for OBS Studio updates
 	// delete ui->actionCheckForUpdates;
 	ui->actionShowCrashLogs = nullptr;
 	ui->actionUploadLastCrashLog = nullptr;
 	ui->menuCrashLogs = nullptr;
-  // NOTE LUDO: #186 do not check for OBS Studio updates
+	// NOTE LUDO: #186 do not check for OBS Studio updates
 	// ui->actionCheckForUpdates = nullptr;
 #endif
 
-  // NOTE LUDO: #186 do not check for OBS Studio updates
+	// NOTE LUDO: #186 do not check for OBS Studio updates
 	delete ui->actionCheckForUpdates;
 	ui->actionCheckForUpdates = nullptr;
 
@@ -2140,7 +2143,7 @@ void OBSBasic::CreateHotkeys()
 		Str("Basic.Main.ForceStopStreaming"), cb, this);
 	LoadHotkey(forceStreamingStopHotkey, "OBSBasic.ForceStopStreaming");
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// recordingHotkeys = obs_hotkey_pair_register_frontend(
 	// 	"OBSBasic.StartRecording", Str("Basic.Main.StartRecording"),
 	// 	"OBSBasic.StopRecording", Str("Basic.Main.StopRecording"),
@@ -2154,7 +2157,7 @@ void OBSBasic::CreateHotkeys()
 	// LoadHotkeyPair(recordingHotkeys, "OBSBasic.StartRecording",
 	// 	       "OBSBasic.StopRecording");
 
-    // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// pauseHotkeys = obs_hotkey_pair_register_frontend(
 	// 	"OBSBasic.PauseRecording", Str("Basic.Main.PauseRecording"),
 	// 	"OBSBasic.UnpauseRecording", Str("Basic.Main.UnpauseRecording"),
@@ -2166,7 +2169,7 @@ void OBSBasic::CreateHotkeys()
 	// LoadHotkeyPair(pauseHotkeys, "OBSBasic.PauseRecording",
 	// 	       "OBSBasic.UnpauseRecording");
 
-  // NOTE LUDO: #166 Remove replay
+	// NOTE LUDO: #166 Remove replay
 	// replayBufHotkeys = obs_hotkey_pair_register_frontend(
 	// 	"OBSBasic.StartReplayBuffer",
 	// 	Str("Basic.Main.StartReplayBuffer"),
@@ -2390,7 +2393,8 @@ void OBSBasic::SaveProjectDeferred()
 	if (!sceneCollection)
 		return;
 
-	ret = snprintf(fileName, 512, (config_dir + "/basic/scenes/%s.json").c_str(),
+	ret = snprintf(fileName, 512,
+		       (config_dir + "/basic/scenes/%s.json").c_str(),
 		       sceneCollection);
 	if (ret <= 0)
 		return;
@@ -3104,7 +3108,7 @@ void OBSBasic::CheckForUpdates(bool manualUpdate)
 #ifdef UPDATE_SPARKLE
 	trigger_sparkle_update();
 #elif _WIN32
-  // NOTE LUDO: #186 do not check for OBS Studio updates
+	// NOTE LUDO: #186 do not check for OBS Studio updates
 	// ui->actionCheckForUpdates->setEnabled(false);
 
 	if (updateCheckThread && updateCheckThread->isRunning())
@@ -3119,7 +3123,7 @@ void OBSBasic::CheckForUpdates(bool manualUpdate)
 
 void OBSBasic::updateCheckFinished()
 {
-  // NOTE LUDO: #186 do not check for OBS Studio updates
+	// NOTE LUDO: #186 do not check for OBS Studio updates
 	// ui->actionCheckForUpdates->setEnabled(true);
 }
 
@@ -4813,7 +4817,8 @@ void OBSBasic::UploadLog(const char *subdir, const char *file)
 void OBSBasic::on_actionShowLogs_triggered()
 {
 	char logDir[512];
-	if (GetConfigPath(logDir, sizeof(logDir), (config_dir + "/logs").c_str()) <= 0)
+	if (GetConfigPath(logDir, sizeof(logDir),
+			  (config_dir + "/logs").c_str()) <= 0)
 		return;
 
 	QUrl url = QUrl::fromLocalFile(QT_UTF8(logDir));
@@ -4833,7 +4838,8 @@ void OBSBasic::on_actionUploadLastLog_triggered()
 void OBSBasic::on_actionViewCurrentLog_triggered()
 {
 	char logDir[512];
-	if (GetConfigPath(logDir, sizeof(logDir), (config_dir + "/logs").c_str()) <= 0)
+	if (GetConfigPath(logDir, sizeof(logDir),
+			  (config_dir + "/logs").c_str()) <= 0)
 		return;
 
 	const char *log = App()->GetCurrentLog();
@@ -4849,7 +4855,8 @@ void OBSBasic::on_actionViewCurrentLog_triggered()
 void OBSBasic::on_actionShowCrashLogs_triggered()
 {
 	char logDir[512];
-	if (GetConfigPath(logDir, sizeof(logDir), (config_dir + "/crashes").c_str()) <= 0)
+	if (GetConfigPath(logDir, sizeof(logDir),
+			  (config_dir + "/crashes").c_str()) <= 0)
 		return;
 
 	QUrl url = QUrl::fromLocalFile(QT_UTF8(logDir));
@@ -5274,14 +5281,14 @@ void OBSBasic::StreamingStop(int code, QString last_error)
 			QTStr("Output.StreamEncodeError.Msg"));
 
 	} else if (code != OBS_OUTPUT_SUCCESS && isVisible()) {
-		OBSMessageBox::information(this,
-			QTStr("Output.ConnectFail.Title"),
+		OBSMessageBox::information(
+			this, QTStr("Output.ConnectFail.Title"),
 			QT_UTF8(errorMessage)); // NOTE ALEX: FIXME,
-			// use_last_error);
+						// use_last_error);
 
 	} else if (code != OBS_OUTPUT_SUCCESS && !isVisible()) {
 		SysTrayNotify(QT_UTF8(errorDescription),
-			QSystemTrayIcon::Warning);
+			      QSystemTrayIcon::Warning);
 	}
 
 	if (!startStreamMenu.isNull()) {
@@ -5346,14 +5353,14 @@ void OBSBasic::StartRecording()
 
 	SaveProject();
 
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// if (!outputHandler->StartRecording())
 	// 	ui->recordButton->setChecked(false);
 }
 
 void OBSBasic::RecordStopping()
 {
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->recordButton->setText(QTStr("Basic.Main.StoppingRecording"));
 
 	// if (sysTrayRecord)
@@ -5377,7 +5384,7 @@ void OBSBasic::StopRecording()
 void OBSBasic::RecordingStart()
 {
 	ui->statusbar->RecordingStarted(outputHandler->fileOutput);
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->recordButton->setText(QTStr("Basic.Main.StopRecording"));
 	// ui->recordButton->setChecked(true);
 
@@ -5397,7 +5404,7 @@ void OBSBasic::RecordingStart()
 void OBSBasic::RecordingStop(int code, QString last_error)
 {
 	ui->statusbar->RecordingStopped();
-  // NOTE LUDO: #165 Remove button recording
+	// NOTE LUDO: #165 Remove button recording
 	// ui->recordButton->setText(QTStr("Basic.Main.StartRecording"));
 	// ui->recordButton->setChecked(false);
 
@@ -5740,7 +5747,7 @@ void OBSBasic::on_recordButton_clicked()
 					QTStr("ConfirmStopRecord.Text"));
 
 			if (button == QMessageBox::No) {
-        // NOTE LUDO: #165 Remove button recording
+				// NOTE LUDO: #165 Remove button recording
 				// ui->recordButton->setChecked(true);
 				return;
 			}
@@ -5748,7 +5755,7 @@ void OBSBasic::on_recordButton_clicked()
 		StopRecording();
 	} else {
 		if (!NoSourcesConfirmation()) {
-      // NOTE LUDO: #165 Remove button recording
+			// NOTE LUDO: #165 Remove button recording
 			// ui->recordButton->setChecked(false);
 			return;
 		}
@@ -6616,7 +6623,8 @@ int OBSBasic::GetProfilePath(char *path, size_t size, const char *file) const
 	if (!file)
 		file = "";
 
-	ret = GetConfigPath(profiles_path, 512, (config_dir + "/basic/profiles").c_str());
+	ret = GetConfigPath(profiles_path, 512,
+			    (config_dir + "/basic/profiles").c_str());
 	if (ret <= 0)
 		return ret;
 
@@ -7518,7 +7526,7 @@ void OBSBasic::UpdatePause(bool activate)
 				   QVariant(QStringLiteral("pauseIconSmall")));
 		connect(pause.data(), &QAbstractButton::clicked, this,
 			&OBSBasic::PauseToggled);
-    // NOTE LUDO: #165 Remove button recording
+		// NOTE LUDO: #165 Remove button recording
 		// ui->recordingLayout->addWidget(pause.data());
 	} else {
 		pause.reset();

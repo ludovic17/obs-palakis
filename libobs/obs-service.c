@@ -222,7 +222,8 @@ const char *obs_service_get_codec(const obs_service_t *service)
 	if (!obs_service_valid(service, "obs_service_get_codec"))
 		return NULL;
 
-	if (!service->info.get_codec) return NULL;
+	if (!service->info.get_codec)
+		return NULL;
 	return service->info.get_codec(service->context.data);
 }
 
@@ -238,11 +239,12 @@ const char *obs_service_get_key(const obs_service_t *service)
 
 const char *obs_service_get_room(const obs_service_t *service)
 {
-    if (!obs_service_valid(service, "obs_service_get_room"))
-        return NULL;
+	if (!obs_service_valid(service, "obs_service_get_room"))
+		return NULL;
 
-    if (!service->info.get_room) return NULL;
-    return service->info.get_room(service->context.data);
+	if (!service->info.get_room)
+		return NULL;
+	return service->info.get_room(service->context.data);
 }
 
 const char *obs_service_get_username(const obs_service_t *service)
@@ -267,11 +269,12 @@ const char *obs_service_get_password(const obs_service_t *service)
 
 const char *obs_service_get_protocol(const obs_service_t *service)
 {
-    if (!obs_service_valid(service, "obs_service_get_protocol"))
-        return NULL;
+	if (!obs_service_valid(service, "obs_service_get_protocol"))
+		return NULL;
 
-    if (!service->info.get_protocol) return NULL;
-    return service->info.get_protocol(service->context.data);
+	if (!service->info.get_protocol)
+		return NULL;
+	return service->info.get_protocol(service->context.data);
 }
 
 void obs_service_activate(struct obs_service *service)

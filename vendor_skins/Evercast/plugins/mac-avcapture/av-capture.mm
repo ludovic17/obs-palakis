@@ -1224,7 +1224,7 @@ static void *av_capture_create(obs_data_t *settings, obs_source_t *source)
 		return nullptr;
 	}
 
-  // NOTE LUDO: #117 Video capture device settings: Remove option "Use Buffering"
+	// NOTE LUDO: #117 Video capture device settings: Remove option "Use Buffering"
 	// av_capture_enable_buffering(capture.get(),
 	// 			    obs_data_get_bool(settings, "buffering"));
 
@@ -2091,7 +2091,7 @@ static obs_properties_t *av_capture_properties(void *capture)
 
 	add_manual_properties(props);
 
-  // NOTE LUDO: #117 Video capture device settings: Remove option "Use Buffering"
+	// NOTE LUDO: #117 Video capture device settings: Remove option "Use Buffering"
 	// obs_properties_add_bool(props, "buffering",
 	// 			obs_module_text("Buffering"));
 
@@ -2162,7 +2162,7 @@ static void av_capture_update(void *data, obs_data_t *settings)
 		update_manual(capture, settings);
 	}
 
-  // NOTE LUDO: #117 Video capture device settings: Remove option "Use Buffering"
+	// NOTE LUDO: #117 Video capture device settings: Remove option "Use Buffering"
 	// av_capture_enable_buffering(capture,
 	// 			    obs_data_get_bool(settings, "buffering"));
 }

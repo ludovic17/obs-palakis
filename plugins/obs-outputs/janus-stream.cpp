@@ -9,9 +9,9 @@
 #include <inttypes.h>
 #include <modules/audio_processing/include/audio_processing.h>
 
-#define warn(format, ...)  blog(LOG_WARNING, format, ##__VA_ARGS__)
-#define info(format, ...)  blog(LOG_INFO,    format, ##__VA_ARGS__)
-#define debug(format, ...) blog(LOG_DEBUG,   format, ##__VA_ARGS__)
+#define warn(format, ...) blog(LOG_WARNING, format, ##__VA_ARGS__)
+#define info(format, ...) blog(LOG_INFO, format, ##__VA_ARGS__)
+#define debug(format, ...) blog(LOG_DEBUG, format, ##__VA_ARGS__)
 
 #define OPT_DROP_THRESHOLD "drop_threshold_ms"
 #define OPT_PFRAME_DROP_THRESHOLD "pframe_drop_threshold_ms"
@@ -33,7 +33,7 @@ extern "C" void janus_stream_destroy(void *data)
 {
 	info("janus_stream_destroy");
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*)data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	//Stop it
 	stream->stop();
 	//Remove ref and let it self destroy
@@ -48,7 +48,7 @@ extern "C" void *janus_stream_create(obs_data_t *settings, obs_output_t *output)
 	//Don't allow it to be deleted
 	stream->AddRef();
 	//Return it
-	return (void*)stream;
+	return (void *)stream;
 }
 
 extern "C" void janus_stream_stop(void *data, uint64_t ts)
@@ -56,7 +56,7 @@ extern "C" void janus_stream_stop(void *data, uint64_t ts)
 	info("janus_stream_stop");
 	UNUSED_PARAMETER(ts);
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*)data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	//Stop it
 	stream->stop();
 	//Remove ref and let it self destroy
@@ -67,7 +67,7 @@ extern "C" bool janus_stream_start(void *data)
 {
 	info("janus_stream_start");
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*)data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	//Don't allow it to be deleted
 	stream->AddRef();
 	//Start it
@@ -77,14 +77,14 @@ extern "C" bool janus_stream_start(void *data)
 extern "C" void janus_receive_video(void *data, struct video_data *frame)
 {
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*)data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	//Process audio
 	stream->onVideoFrame(frame);
 }
 extern "C" void janus_receive_audio(void *data, struct audio_data *frame)
 {
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*)data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	//Process audio
 	stream->onAudioFrame(frame);
 }
@@ -108,13 +108,13 @@ extern "C" obs_properties_t *janus_stream_properties(void *data)
 	obs_properties_t *props = obs_properties_create();
 
 	obs_properties_add_int(props, OPT_DROP_THRESHOLD,
-			obs_module_text("JANUSStream.DropThreshold"),
-			200, 10000, 100);
+			       obs_module_text("JANUSStream.DropThreshold"),
+			       200, 10000, 100);
 
 	obs_properties_add_bool(props, OPT_NEWSOCKETLOOP_ENABLED,
-			obs_module_text("JANUSStream.NewSocketLoop"));
+				obs_module_text("JANUSStream.NewSocketLoop"));
 	obs_properties_add_bool(props, OPT_LOWLATENCY_ENABLED,
-			obs_module_text("JANUSStream.LowLatencyMode"));
+				obs_module_text("JANUSStream.LowLatencyMode"));
 
 	return props;
 }
@@ -122,29 +122,29 @@ extern "C" obs_properties_t *janus_stream_properties(void *data)
 // NOTE LUDO: #80 add getStats
 extern "C" void janus_stream_get_stats(void *data)
 {
-  // Get stream
-	WebRTCStream* stream = (WebRTCStream*) data;
+	// Get stream
+	WebRTCStream *stream = (WebRTCStream *)data;
 	stream->getStats();
 }
 
 extern "C" const char *janus_stream_get_stats_list(void *data)
 {
-  // Get stream
-	WebRTCStream* stream = (WebRTCStream*) data;
+	// Get stream
+	WebRTCStream *stream = (WebRTCStream *)data;
 	return stream->get_stats_list();
 }
 
 extern "C" uint64_t janus_stream_total_bytes_sent(void *data)
 {
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*) data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	return stream->getBitrate();
 }
 
 extern "C" int janus_stream_dropped_frames(void *data)
 {
 	//Get stream
-	WebRTCStream *stream = (WebRTCStream*) data;
+	WebRTCStream *stream = (WebRTCStream *)data;
 	return stream->getDroppedFrames();
 }
 
@@ -156,63 +156,62 @@ extern "C" float janus_stream_congestion(void *data)
 
 extern "C" {
 #ifdef _WIN32
-	struct obs_output_info janus_output_info = {
-		"janus_output", //id
-		OBS_OUTPUT_AV | OBS_OUTPUT_SERVICE, //flags
-		janus_stream_getname, //get_name
-		janus_stream_create, //create
-		janus_stream_destroy, //destroy
-		janus_stream_start, //start
-		janus_stream_stop, //stop
-		janus_receive_video, //raw_video
-		janus_receive_audio, //raw_audio
-		nullptr, //encoded_packet
-		nullptr, //update
-		janus_stream_defaults, //get_defaults
-		janus_stream_properties, //get_properties
-		nullptr, //unused1 (formerly pause)
-    // NOTE LUDO: #80 add getStats
-    janus_stream_get_stats,
-    janus_stream_get_stats_list,
-		janus_stream_total_bytes_sent, //get_total_bytes
-		janus_stream_dropped_frames, //get_dropped_frames
-		nullptr, //type_data
-		nullptr, //free_type_data
-		janus_stream_congestion, //get_congestion
-		nullptr, //get_connect_time_ms
-		"vp8", //encoded_video_codecs
-		"opus", //encoded_audio_codecs
-		nullptr //raw_audio2
-	};
+struct obs_output_info janus_output_info = {
+	"janus_output",                     //id
+	OBS_OUTPUT_AV | OBS_OUTPUT_SERVICE, //flags
+	janus_stream_getname,               //get_name
+	janus_stream_create,                //create
+	janus_stream_destroy,               //destroy
+	janus_stream_start,                 //start
+	janus_stream_stop,                  //stop
+	janus_receive_video,                //raw_video
+	janus_receive_audio,                //raw_audio
+	nullptr,                            //encoded_packet
+	nullptr,                            //update
+	janus_stream_defaults,              //get_defaults
+	janus_stream_properties,            //get_properties
+	nullptr,                            //unused1 (formerly pause)
+	// NOTE LUDO: #80 add getStats
+	janus_stream_get_stats, janus_stream_get_stats_list,
+	janus_stream_total_bytes_sent, //get_total_bytes
+	janus_stream_dropped_frames,   //get_dropped_frames
+	nullptr,                       //type_data
+	nullptr,                       //free_type_data
+	janus_stream_congestion,       //get_congestion
+	nullptr,                       //get_connect_time_ms
+	"vp8",                         //encoded_video_codecs
+	"opus",                        //encoded_audio_codecs
+	nullptr                        //raw_audio2
+};
 #else
-	struct obs_output_info janus_output_info = {
-		.id                   = "janus_output",
-		.flags                = OBS_OUTPUT_AV | OBS_OUTPUT_SERVICE,
-		.get_name             = janus_stream_getname,
-		.create               = janus_stream_create,
-		.destroy              = janus_stream_destroy,
-		.start                = janus_stream_start,
-		.stop                 = janus_stream_stop,
-		.raw_video            = janus_receive_video,
-		.raw_audio            = janus_receive_audio, //for single-track
-		.encoded_packet       = nullptr,
-		.update               = nullptr,
-		.get_defaults         = janus_stream_defaults,
-		.get_properties       = janus_stream_properties,
-		.unused1              = nullptr,
-    // NOTE LUDO: #80 add getStats
-    .get_stats            = janus_stream_get_stats,
-    .get_stats_list       = janus_stream_get_stats_list,
-		.get_total_bytes      = janus_stream_total_bytes_sent,
-		.get_dropped_frames   = janus_stream_dropped_frames,
-		.type_data            = nullptr,
-		.free_type_data       = nullptr,
-		.get_congestion       = janus_stream_congestion,
-		.get_connect_time_ms  = nullptr,
-		.encoded_video_codecs = "vp8",
-		.encoded_audio_codecs = "opus",
-		.raw_audio2           = nullptr
-		// .raw_audio2           = janus_receive_multitrack_audio, //for multi-track
-	};
+struct obs_output_info janus_output_info = {
+	.id = "janus_output",
+	.flags = OBS_OUTPUT_AV | OBS_OUTPUT_SERVICE,
+	.get_name = janus_stream_getname,
+	.create = janus_stream_create,
+	.destroy = janus_stream_destroy,
+	.start = janus_stream_start,
+	.stop = janus_stream_stop,
+	.raw_video = janus_receive_video,
+	.raw_audio = janus_receive_audio, //for single-track
+	.encoded_packet = nullptr,
+	.update = nullptr,
+	.get_defaults = janus_stream_defaults,
+	.get_properties = janus_stream_properties,
+	.unused1 = nullptr,
+	// NOTE LUDO: #80 add getStats
+	.get_stats = janus_stream_get_stats,
+	.get_stats_list = janus_stream_get_stats_list,
+	.get_total_bytes = janus_stream_total_bytes_sent,
+	.get_dropped_frames = janus_stream_dropped_frames,
+	.type_data = nullptr,
+	.free_type_data = nullptr,
+	.get_congestion = janus_stream_congestion,
+	.get_connect_time_ms = nullptr,
+	.encoded_video_codecs = "vp8",
+	.encoded_audio_codecs = "opus",
+	.raw_audio2 = nullptr
+	// .raw_audio2           = janus_receive_multitrack_audio, //for multi-track
+};
 #endif
 }

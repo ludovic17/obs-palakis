@@ -76,7 +76,7 @@ static void rtmp_common_update(void *data, obs_data_t *settings)
 	service->key = bstrdup(obs_data_get_string(settings, "key"));
 	service->output = NULL;
 
-  // NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
+	// NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
 	// json_t *root = open_services_file();
 	// if (root) {
 	// 	const char *new_name;
@@ -450,7 +450,7 @@ static obs_properties_t *rtmp_common_properties(void *unused)
 
 	obs_properties_t *ppts = obs_properties_create();
 	obs_property_t *p;
-  // NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
+	// NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
 	// json_t *root;
 
 	// root = open_services_file();
@@ -563,7 +563,7 @@ static void initialize_output(struct rtmp_common *service, json_t *root,
 static void rtmp_common_apply_settings(void *data, obs_data_t *video_settings,
 				       obs_data_t *audio_settings)
 {
-  // NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
+	// NOTE LUDO: #167 Settings/Stream: only one service displayed: Evercast
 	// struct rtmp_common *service = data;
 	// json_t *root = open_services_file();
 

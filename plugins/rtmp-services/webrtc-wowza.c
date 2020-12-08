@@ -97,9 +97,11 @@ static obs_properties_t *webrtc_wowza_properties(void *unused)
 	obs_property_t *p;
 
 	obs_properties_add_text(ppts, "server", "Server URL", OBS_TEXT_DEFAULT);
-	obs_properties_add_text(ppts, "room", "Application Name", OBS_TEXT_DEFAULT);
+	obs_properties_add_text(ppts, "room", "Application Name",
+				OBS_TEXT_DEFAULT);
 
-	obs_properties_add_text(ppts, "username", "Stream Name", OBS_TEXT_DEFAULT);
+	obs_properties_add_text(ppts, "username", "Stream Name",
+				OBS_TEXT_DEFAULT);
 	obs_properties_add_text(ppts, "password", "Password", OBS_TEXT_DEFAULT);
 
 	obs_properties_add_text(ppts, "codec", "Codec", OBS_TEXT_DEFAULT);
@@ -195,18 +197,17 @@ static const char *webrtc_wowza_get_output_type(void *data)
 }
 
 struct obs_service_info webrtc_wowza_service = {
-	.id             = "webrtc_wowza",
-	.get_name       = webrtc_wowza_name,
-	.create         = webrtc_wowza_create,
-	.destroy        = webrtc_wowza_destroy,
-	.update         = webrtc_wowza_update,
+	.id = "webrtc_wowza",
+	.get_name = webrtc_wowza_name,
+	.create = webrtc_wowza_create,
+	.destroy = webrtc_wowza_destroy,
+	.update = webrtc_wowza_update,
 	.get_properties = webrtc_wowza_properties,
-	.get_url        = webrtc_wowza_url,
-	.get_key        = webrtc_wowza_key,
-	.get_room       = webrtc_wowza_room,
-	.get_username   = webrtc_wowza_username,
-	.get_password   = webrtc_wowza_password,
-	.get_codec      = webrtc_wowza_codec,
-	.get_protocol   = webrtc_wowza_protocol,
-	.get_output_type = webrtc_wowza_get_output_type
-};
+	.get_url = webrtc_wowza_url,
+	.get_key = webrtc_wowza_key,
+	.get_room = webrtc_wowza_room,
+	.get_username = webrtc_wowza_username,
+	.get_password = webrtc_wowza_password,
+	.get_codec = webrtc_wowza_codec,
+	.get_protocol = webrtc_wowza_protocol,
+	.get_output_type = webrtc_wowza_get_output_type};

@@ -30,11 +30,7 @@ enum class Section : int {
 };
 
 std::vector<std::string> webrtc_services = {
-	"webrtc_janus",
-	"webrtc_wowza",
-	"webrtc_millicast",
-	"webrtc_evercast"
-};
+	"webrtc_janus", "webrtc_wowza", "webrtc_millicast", "webrtc_evercast"};
 std::vector<std::string>::size_type webrtc_count = webrtc_services.size();
 
 inline bool OBSBasicSettings::IsCustomService() const
@@ -149,7 +145,8 @@ void OBSBasicSettings::LoadStream1Settings()
 								  : tmpString;
 
 		int idx = 0;
-		for (std::vector<std::string>::size_type i = 0; i < webrtc_count; ++i) {
+		for (std::vector<std::string>::size_type i = 0;
+		     i < webrtc_count; ++i) {
 			if (std::string(type) == webrtc_services[i]) {
 				idx = i + 1;
 				break;
@@ -234,16 +231,17 @@ void OBSBasicSettings::SaveStream1Settings()
 		}
 	} else if (webrtc > 0) {
 		obs_data_set_string(settings, "server",
-			QT_TO_UTF8(ui->customServer->text()));
+				    QT_TO_UTF8(ui->customServer->text()));
 		obs_data_set_string(settings, "room",
-			QT_TO_UTF8(ui->room->text()));
+				    QT_TO_UTF8(ui->room->text()));
 		obs_data_set_string(settings, "username",
-			QT_TO_UTF8(ui->authUsername->text()));
+				    QT_TO_UTF8(ui->authUsername->text()));
 		obs_data_set_string(settings, "password",
-			QT_TO_UTF8(ui->authPw->text()));
+				    QT_TO_UTF8(ui->authPw->text()));
 		obs_data_set_string(settings, "codec",
-			QT_TO_UTF8(ui->codec->currentText()));
-		obs_data_set_string(settings, "protocol",
+				    QT_TO_UTF8(ui->codec->currentText()));
+		obs_data_set_string(
+			settings, "protocol",
 			QT_TO_UTF8(ui->streamProtocol->currentText()));
 	}
 
@@ -358,9 +356,10 @@ void OBSBasicSettings::LoadServices(bool showAll)
 	}
 
 	for (std::vector<std::string>::size_type i = webrtc_count; i-- > 0;) {
-		ui->service->insertItem(
-			0, obs_service_get_display_name(webrtc_services[i].c_str()),
-			QVariant((int)i + 3));
+		ui->service->insertItem(0,
+					obs_service_get_display_name(
+						webrtc_services[i].c_str()),
+					QVariant((int)i + 3));
 	}
 
 	ui->service->insertItem(
@@ -631,9 +630,9 @@ OBSService OBSBasicSettings::SpawnTempService()
 	bool custom = IsCustomService();
 	int webrtc = IsWebRTC();
 
-	const char *service_id = webrtc == 0
-		? custom ? "rtmp_custom" : "rtmp_common"
-		: webrtc_services[webrtc - 3].c_str();
+	const char *service_id =
+		webrtc == 0 ? custom ? "rtmp_custom" : "rtmp_common"
+			    : webrtc_services[webrtc - 3].c_str();
 
 	OBSData settings = obs_data_create();
 	obs_data_release(settings);
