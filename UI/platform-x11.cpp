@@ -53,8 +53,8 @@ bool GetDataFilePath(const char *data, string &output)
 
 	if (check_path(data, OBS_DATA_PATH "/obs-webrtc/", output))
 		return true;
-	// if (check_path(data, INSTALL_DATA_PATH, output))
-	if (check_path(data, CONFIG_DIR, output))
+	if (check_path(data, INSTALL_DATA_PATH, output))
+	// if (check_path(data, CONFIG_DIR, output))
 		return true;
 
 	return false;
