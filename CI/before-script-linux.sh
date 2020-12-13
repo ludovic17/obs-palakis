@@ -2,8 +2,8 @@
 
 set -ex
 ccache -s || echo "CCache is not available."
-#libwebrtc_dir=`pwd`/libwebrtc/cmake
-libwebrtc_dir=../libwebrtc/cmake
+libwebrtc_dir=`pwd`/libwebrtc/cmake
+#libwebrtc_dir=../libwebrtc/cmake
 pwd
 ls -l libwebrtc/cmake
 mkdir build && cd build
