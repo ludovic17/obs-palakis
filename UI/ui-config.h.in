@@ -26,4 +26,4 @@
 
 #define DEFAULT_THEME "Dark"
 
-#define CONFIG_DIR "@CONFIG_DIR@"
+#define CONFIG_DIR @CONFIG_DIR@
