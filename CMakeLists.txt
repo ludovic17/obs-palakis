@@ -101,6 +101,7 @@ endif()
 # --- extend cmake with our own scripts, macros and modules
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+message( STATUS "************* LUDO CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}" )
 set(ENABLE_SCRIPTING TRUE CACHE BOOL "Enables scripting")
 set(SCRIPTING_ENABLED OFF CACHE BOOL "Internal global cmake variable" FORCE)
 
