@@ -81,7 +81,7 @@ void *os_dlopen(const char *path)
       blog(LOG_ERROR, "Current working directory : %s\n", buffer);
     }
     else {
-      blog("getcwd() error");
+      blog(LOG_ERROR, "getcwd() error\n");
     }
   }
 
