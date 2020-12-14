@@ -59,7 +59,7 @@ jobs:
 - job: 'Build_Linux'
   pool:
 #    name: 'ubuntu2004'
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-20.04'
   steps:
   - script: git submodule update --init --recursive
     displayName: 'Checkout Submodules'
