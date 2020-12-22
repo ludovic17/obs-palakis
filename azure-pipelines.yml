@@ -77,7 +77,7 @@ jobs:
   - ${{ each vendor in parameters.vendors }}:
     - bash: |
         set -e
-        git checkout
+        git stash
         mkdir build_${{ vendor }}
         ./CI/before-script-linux.sh ${{ vendor }}
         cd build_${{ vendor }}
