@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Original source https://github.com/Project-OSRM/osrm-backend/blob/master/scripts/format.sh
 
-set -x
+set +x
 set -o errexit
 set -o pipefail
 set -o nounset

@@ -19,7 +19,7 @@ if( NOT OBS_WEBRTC_VENDOR_NAME )
 	set( _gui_name obs )
 else()
 	# NOTE ALEX: ugly, fix me.
-	set( _gui_name obs )
+	set( _gui_name ebs )
 endif()
 project(${_gui_name})
 
@@ -33,16 +33,6 @@ if(NOT DEFINED TWITCH_CLIENTID OR "${TWITCH_CLIENTID}" STREQUAL "" OR
 	set(TWITCH_HASH "0")
 else()
 	set(TWITCH_ENABLED TRUE)
-endif()
-
-if(NOT DEFINED MIXER_CLIENTID OR "${MIXER_CLIENTID}" STREQUAL "" OR
-   NOT DEFINED MIXER_HASH     OR "${MIXER_HASH}"     STREQUAL "" OR
-   NOT BROWSER_AVAILABLE_INTERNAL)
-	set(MIXER_ENABLED FALSE)
-	set(MIXER_CLIENTID "")
-	set(MIXER_HASH "0")
-else()
-	set(MIXER_ENABLED TRUE)
 endif()
 
 if(NOT DEFINED RESTREAM_CLIENTID OR "${RESTREAM_CLIENTID}" STREQUAL "" OR
@@ -105,7 +95,7 @@ if(WIN32)
 		win-update/update-window.cpp
 		win-update/win-update.cpp
 		win-update/win-update-helpers.cpp
-		${obs.rc_DIR}/obs.rc)
+		${obs-studio_BINARY_DIR}/obs.rc)
 	set(obs_PLATFORM_HEADERS
 		win-update/update-window.hpp
 		win-update/win-update.hpp
@@ -170,15 +160,6 @@ if(BROWSER_AVAILABLE_INTERNAL)
 			)
 		list(APPEND obs_PLATFORM_HEADERS
 			auth-twitch.hpp
-			)
-	endif()
-
-	if(MIXER_ENABLED)
-		list(APPEND obs_PLATFORM_SOURCES
-			auth-mixer.cpp
-			)
-		list(APPEND obs_PLATFORM_HEADERS
-			auth-mixer.hpp
 			)
 	endif()
 
@@ -395,8 +376,6 @@ set(obs_QRC
 qt5_wrap_ui(obs_UI_HEADERS ${obs_UI})
 qt5_add_resources(obs_QRC_SOURCES ${obs_QRC})
 
-message( STATUS "rc file: ${obs_QRC_SOURCES}." )
-
 add_executable( ${_gui_name} WIN32
 	obs.manifest
 	${obs_SOURCES}
@@ -433,15 +412,7 @@ target_link_libraries(${_gui_name}
 if (APPLE)
 	target_link_libraries( ${_gui_name}
 			Qt5::MacExtras)
-	set_target_properties(${_gui_name} PROPERTIES LINK_FLAGS "-pagezero_size 10000 -image_base 100000000")
-	set_property(
-		TARGET ${_gui_name}
-		APPEND
-		PROPERTY INSTALL_RPATH
-		"/usr/local/Cellar/python3/3.6.4_2/Frameworks/Python.framework/Versions/3.6/lib/"
-		"/Library/Frameworks/Python.framework/Versions/3.6/lib/"
-		"/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/"
-	)
+	set_target_properties( ${_gui_name} PROPERTIES LINK_FLAGS "-pagezero_size 10000 -image_base 100000000")
 endif()
 set_target_properties( ${_gui_name} PROPERTIES FOLDER "frontend")
 
@@ -449,7 +420,7 @@ define_graphic_modules( ${_gui_name} )
 
 install_obs_core( ${_gui_name} )
 install_obs_data( ${_gui_name} data ${CONFIG_DIR})
-install_obs_data_file( ${_gui_name} ../AUTHORS ${CONFIG_DIR}/authors)
+install_obs_data_file( ${_gui_name} ../AUTHORS obs-studio/authors)
 
 if (UNIX AND UNIX_STRUCTURE AND NOT APPLE)
 	add_subdirectory(xdg-data)

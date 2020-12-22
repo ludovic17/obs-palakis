@@ -26,6 +26,9 @@ endif()
 # The FTL SDK on Windows can't find struct timeval. FTL is irrelevant to this fork
 # so let's just keep it turned off
 
+#------------------------------------------------------------------------
+# FTL-SDK (disabling for now due to compiling error)
+#
 # if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ftl-sdk/CMakeLists.txt")
 # 	find_package(Libcurl REQUIRED)
 # 	message(STATUS "Found ftl-sdk: ftl outputs enabled")
@@ -78,14 +81,17 @@ endif()
 # 
 # 	set(COMPILE_FTL TRUE)
 # else()
-	set(COMPILE_FTL FALSE)
+#	set(COMPILE_FTL FALSE)
 # endif()
+
+	set(COMPILE_FTL FALSE)
 
 configure_file(
 	"${CMAKE_CURRENT_SOURCE_DIR}/obs-outputs-config.h.in"
 	"${CMAKE_BINARY_DIR}/plugins/obs-outputs/config/obs-outputs-config.h")
 
 include_directories("${CMAKE_BINARY_DIR}/plugins/obs-outputs/config")
+include_directories(${CMAKE_SOURCE_DIR}/libobs)
 
 #------------------------------------------------------------------------
 # WebRTC
@@ -96,14 +102,10 @@ endif()
 
 message( STATUS "Looking for libwebrtc" )
 # CoSMo libwebrtc package has versioning and COMPONENTS
-message( STATUS "************* LUDO call find_package(libwebrtc 84 QUIET COMPONENTS H264 )" )
 find_package(LibWebRTC 84 QUIET COMPONENTS H264 )
-message( STATUS "************* LUDO find_package(libwebrtc 84 QUIET COMPONENTS H264 ) done" )
-if( NOT libwebrtc_FOUND )
+  if( NOT libwebrtc_FOUND )
     # A FindLibWebRTC package is also provided in the repository for self-compiled libwebrtc
-    message( STATUS "************* LUDO call find_package(libwebrtc REQUIRED)" )
     find_package(LibWebRTC REQUIRED)
-    message( STATUS "************* LUDO find_package(libwebrtc REQUIRED) done" )
   endif()
 message( STATUS "Looking for libwebrtc - found" )
 if( WEBRTC_H264_FOUND )
@@ -179,25 +181,21 @@ endif()
 
 set(obs-outputs_webrtc_HEADERS
 	AudioDeviceModuleWrapper.h
-	evercast-stream.h
-	janus-stream.h
 	millicast-stream.h
 	webrtc-custom-stream.h
         obsWebrtcAudioSource.h
 	SDPModif.h
 	VideoCapturer.h
 	WebRTCStream.h
-	wowza-stream.h)
+       )
 set(obs-outputs_webrtc_SOURCES
 	AudioDeviceModuleWrapper.cpp
-	evercast-stream.cpp
-	janus-stream.cpp
 	millicast-stream.cpp
 	webrtc-custom-stream.cpp
         obsWebrtcAudioSource.cpp
 	VideoCapturer.cpp
 	WebRTCStream.cpp
-	wowza-stream.cpp)
+	)
 
 if(NOT WIN32)
 	set_source_files_properties(${obs-outputs_webrtc_SOURCES} PROPERTIES

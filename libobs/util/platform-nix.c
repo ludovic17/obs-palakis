@@ -73,17 +73,9 @@ void *os_dlopen(const char *path)
 #else
 	void *res = dlopen(dylib_name.array, RTLD_LAZY);
 #endif
-	if (!res) {
+	if (!res)
 		blog(LOG_ERROR, "os_dlopen(%s->%s): %s\n", path,
 		     dylib_name.array, dlerror());
-    char buffer[1000];
-    if (getcwd(buffer, sizeof(buffer)) != NULL) {
-      blog(LOG_ERROR, "Current working directory : %s\n", buffer);
-    }
-    else {
-      blog(LOG_ERROR, "getcwd() error\n");
-    }
-  }
 
 	dstr_free(&dylib_name);
 	return res;

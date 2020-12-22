@@ -10,11 +10,23 @@ variables:
   TWITCH-HASH: $(twitch_hash)
   RESTREAM-CLIENTID: $(restream_clientid)
   RESTREAM-HASH: $(restream_hash)
+  # VENDOR_BUILD possible values (select one only):
+  #   Millicast
+  #   PacPost
+  #   RemoteFilming
+  VENDOR_BUILD: PacPost
+
+parameters:
+  - name: vendors
+    type: object
+    default:
+    - Millicast
+    - PacPost
+    - RemoteFilming
 
 jobs:
 - job: 'Build_macOS'
   pool:
-#    name: 'Default'
     vmImage: 'macOS-10.15'
   steps:
   - script: git submodule update --init --recursive
@@ -34,15 +46,13 @@ jobs:
 
 - job: 'Build_Windows64'
   pool:
-#    name: 'win10'
     vmImage: 'windows-2019'
   steps:
   - script: git submodule update --init --recursive
     displayName: 'Checkout Submodules'
   - script: ./CI/install-qt-win.cmd
     displayName: 'Install QT'
-
-  - script: call ./CI/install-script-win.cmd
+  - script: ./CI/install-script-win.cmd
     displayName: 'Download / Setup Deps / Run CMake'
   - task: MSBuild@1
     displayName: 'Build 64-bit'
@@ -58,34 +68,26 @@ jobs:
 
 - job: 'Build_Linux'
   pool:
-#    name: 'ubuntu2004'
     vmImage: 'ubuntu-20.04'
   steps:
-  - script: git submodule update --init --recursive
-    displayName: 'Checkout Submodules'
-  - script: ./CI/install-dependencies-linux.sh
-    displayName: 'Install Dependencies'
-
-  - script: ./CI/before-script-linux.sh
-    displayName: 'CMake'
-
-  - bash: |
-      set -e
-      cd ./build
-      make -j4
-      cd -
-    displayName: 'Build'
-
-  - bash: |
-      cd ./build
-      cpack -G DEB
-      mkdir ../package
-      mv *.deb ../package/
-      cd -
-    displayName: 'Package'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: './package'
-      artifactName: 'debbuild'
-
+  - ${{ each vendor in parameters.vendors }}:
+    - bash: |
+        mkdir ${{ vendor }}
+        cd ${{ vendor }}
+        git submodule update --init --recursive
+        ./CI/install-dependencies-linux.sh
+        ./CI/before-script-linux.sh ${{ vendor }}
+        set -e
+        cd build
+        make -j4
+        cd ..
+        mkdir package
+        cd build
+        cpack -G DEB
+        mv *.deb ../package/
+        cd ..
+      displayName: 'Checkout, dependencies, cmake, build, package'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '${{ vendor }}/package'
+        artifactName: 'debbuild'
