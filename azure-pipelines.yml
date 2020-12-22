@@ -90,5 +90,5 @@ jobs:
       displayName: 'cmake, build, package'
     - task: PublishBuildArtifacts@1
       inputs:
-        pathtoPublish: '../package'
+        pathtoPublish: './package'
         artifactName: 'debbuild'
