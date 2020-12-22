@@ -10,11 +10,6 @@ variables:
   TWITCH-HASH: $(twitch_hash)
   RESTREAM-CLIENTID: $(restream_clientid)
   RESTREAM-HASH: $(restream_hash)
-  # VENDOR_BUILD possible values (select one only):
-  #   Millicast
-  #   PacPost
-  #   RemoteFilming
-  VENDOR_BUILD: PacPost
 
 parameters:
   - name: vendors
@@ -22,7 +17,7 @@ parameters:
     default:
     - Millicast
     - PacPost
-    - RemoteFilming
+#    - RemoteFilming
 
 jobs:
 - job: 'Build_macOS'
