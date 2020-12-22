@@ -1,7 +1,8 @@
 REM install WiX Toolset
 choco -y install wixtoolset
 
-cd build64
+REM Parameter %1 = vendor name
+cd build64_%1
 cpack -G WIX
 
-move *.msi ..\build
+move *.msi ..\build_%1
