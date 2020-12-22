@@ -77,6 +77,7 @@ jobs:
   - ${{ each vendor in parameters.vendors }}:
     - bash: |
         set -e
+        git checkout
         mkdir build_${{ vendor }}
         ./CI/before-script-linux.sh ${{ vendor }}
         cd build_${{ vendor }}
@@ -87,7 +88,7 @@ jobs:
         cpack -G DEB
         mv *.deb ../package/${{ vendor }}
         cd ..
-      displayName: 'cmake, build, package'
+      displayName: '${{ vendor }} cmake, build, package'
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: './package'
