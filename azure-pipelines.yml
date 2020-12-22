@@ -75,6 +75,8 @@ jobs:
         mkdir ${{ vendor }}
         cd ${{ vendor }}
         git submodule update --init --recursive
+        pwd
+        ls -l
         ./CI/install-dependencies-linux.sh
         ./CI/before-script-linux.sh ${{ vendor }}
         set -e
