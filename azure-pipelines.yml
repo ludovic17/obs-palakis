@@ -56,7 +56,7 @@ jobs:
       displayName: '${{ vendor }} Build 64-bit'
       inputs:
         msbuildArguments: '/m /p:Configuration=Release'
-        solution: .\build64_${{ vendor }}\obs-studio.sln
+        solution: .\build64_${{ vendor }}\${{ vendor }}.sln
     - script: ./CI/before-deploy-win.cmd ${{ vendor }}
       displayName: '${{ vendor }} Before deploy'
     - task: PublishBuildArtifacts@1
