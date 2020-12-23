@@ -121,7 +121,6 @@ install_homebrew_deps() {
 
     brew update
     brew bundle --file ${CI_SCRIPTS}/Brewfile
-    brew install jack
 
     check_curl
 }
