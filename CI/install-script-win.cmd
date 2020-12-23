@@ -14,8 +14,10 @@ if "%1"=="Millicast" (
 mkdir build_%1 build32_%1 build64_%1
 cd build64_%1
 if "%TWITCH-CLIENTID%"=="$(twitch_clientid)" (
+  dir %CD%\openssl-1.1\x64
   cmake %vendor_option% -G "Visual Studio 16 2019" -A x64 -DCMAKE_SYSTEM_VERSION=10.0 -DOBS_VERSION_OVERRIDE="26.0.2" -DCOPIED_DEPENDENCIES=false -DCOPY_DEPENDENCIES=true -DENABLE_VLC=ON -DBUILD_CAPTIONS=true -DCOMPILE_D3D12_HOOK=true -DBUILD_BROWSER=true -DCEF_ROOT_DIR=%CEF_64% -Dlibwebrtc_DIR="%CD%\libwebrtc\cmake" -DOPENSSL_ROOT_DIR="%CD%\openssl-1.1\x64" ..
 ) else (
+  dir %CD%\openssl-1.1\x64
   cmake %vendor_option% -G "Visual Studio 16 2019" -A x64 -DCMAKE_SYSTEM_VERSION=10.0 -DOBS_VERSION_OVERRIDE="26.0.2" -DCOPIED_DEPENDENCIES=false -DCOPY_DEPENDENCIES=true -DENABLE_VLC=ON -DBUILD_CAPTIONS=true -DCOMPILE_D3D12_HOOK=true -DBUILD_BROWSER=true -DCEF_ROOT_DIR=%CEF_64% -Dlibwebrtc_DIR="%CD%\libwebrtc\cmake" -DOPENSSL_ROOT_DIR="%CD%\openssl-1.1\x64" -DTWITCH_CLIENTID="%TWITCH-CLIENTID%" -DTWITCH_HASH="%TWITCH-HASH%"  -DRESTREAM_CLIENTID="%RESTREAM-CLIENTID%" -DRESTREAM_HASH="%RESTREAM-HASH%" ..
 )
 if "%1"=="Millicast" (
