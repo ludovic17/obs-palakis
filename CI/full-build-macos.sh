@@ -192,7 +192,7 @@ install_cef() {
     step "Download..."
     ${CURLCMD} --progress-bar -L -C - -O https://obs-nightly.s3-us-west-2.amazonaws.com/cef_binary_${1}_macosx64.tar.bz2
     step "Unpack..."
-    tar -xfj ./cef_binary_${1}_macosx64.tar.bz2
+    tar -xf ./cef_binary_${1}_macosx64.tar.bz2
     cd ./cef_binary_${1}_macosx64
     step "Fix tests..."
     # remove a broken test
